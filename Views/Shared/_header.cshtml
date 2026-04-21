@@ -7,10 +7,6 @@
 
     bool search = Session["Search"] != null ? (bool)Session["Search"] : false;
     string searchString = Session["SearchString"] != null ? (string)Session["SearchString"] : "";
-    int currentMediaId = Session["CurrentMediaId"] != null ? (int)Session["CurrentMediaId"] : 0;
-    string currentMediaTitle = Session["currentMediaTitle"] != null ? (string)Session["currentMediaTitle"] : "";
-    string selectedCategory = Session["CurrentSelectedCategory"] != null ? (string)Session["CurrentSelectedCategory"] : "";
-    bool SearchAscending = Session["SortAscending"] != null ? (bool)Session["SortAscending"] : false;
 
     var Categories = (List<string>)Session["Categories"];
 
@@ -45,15 +41,6 @@
                     @if (userCanWrite)
                     {
                         <a href="/@controller/Create" class="cmdIcon fa fa-circle-plus" title="Ajouter..."></a>
-                    }
-
-                    @if (SearchAscending)
-                    {
-                        <a href="/@controller/ToggleSort" class="cmdIcon fa fa-arrow-down-short-wide" title="Tri ascendant..."></a>
-                    }
-                    else
-                    {
-                        <a href="/@controller/ToggleSort" class="cmdIcon fa fa-arrow-up-wide-short" title="Tri descendant..."></a>
                     }
 
                     <a href="/@controller/ToggleSearch" class="cmdIcon fa fa-search" title="Recherche..."></a>

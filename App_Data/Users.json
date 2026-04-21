@@ -1,1 +1,35 @@
-[{"Name":"Modérateur","Email":"master@app.net","Password":"6HZwPN2g0UaWB+6e1Jr66ofzkWhS/zFNtPnY2adZ0ms=gX8sUQVxDqM8nB7X32Ou5PGWmpU=","Access":3,"Blocked":false,"Verified":true,"Notify":true,"Avatar":"/App_Assets/Users/3b8cc315-9869-4eeb-acb0-9f539b33758a.jpeg","Id":1},{"Name":"jack","Email":"jack@yopmail.com","Password":"fWeXD5TgQEG3DMBti16i21Uq0BM5nP0k4WxkSz4L7W0=+zI3o1ddAc3Ch2TUXdwp0sLTboM=","Access":1,"Blocked":false,"Verified":true,"Notify":true,"Avatar":"/App_Assets/Users/no_avatar.png","Id":2}]
+[
+  {
+    "Name": "admin",
+    "Email": "admin@app.net",
+    "Password": "fWeXD5TgQEG3DMBti16i21Uq0BM5nP0k4WxkSz4L7W0=+zI3o1ddAc3Ch2TUXdwp0sLTboM=",
+    "Access": 3,
+    "Blocked": false,
+    "Verified": true,
+    "Notify": true,
+    "Avatar": "/App_Assets/Users/no_avatar.png",
+    "Id": 1
+  },
+  {
+    "Name": "super",
+    "Email": "super@app.net",
+    "Password": "Llm2m5oGd9Qt2Z9uizfC9ixg6uyn9s+Bk5PyRE9QYZk=SwLxH500TjNRrbLrVmBtADukSI8=",
+    "Access": 2,
+    "Blocked": false,
+    "Verified": true,
+    "Notify": true,
+    "Avatar": "/App_Assets/Users/no_avatar.png",
+    "Id": 2
+  },
+  {
+    "Name": "user",
+    "Email": "user@app.net",
+    "Password": "k3gyKt0I2+Y5y864NApjuDGAI5GuzMA4Ph9ivukNE1c=MjrYG7nnA0VRk9cuPU3iQvMkQxE=",
+    "Access": 1,
+    "Blocked": false,
+    "Verified": true,
+    "Notify": true,
+    "Avatar": "/App_Assets/Users/no_avatar.png",
+    "Id": 3
+  }
+]

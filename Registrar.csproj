@@ -123,6 +123,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Allocations.cs" />
+    <Compile Include="Models\Courses.cs" />
     <Compile Include="Models\EmailView.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventsRepository.cs" />
@@ -131,7 +133,11 @@
     <Compile Include="Models\LoginsRepository.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationsRepository.cs" />
+    <Compile Include="Models\Registrations.cs" />
     <Compile Include="Models\RenewPasswordView.cs" />
+    <Compile Include="Models\SelectListUtilities.cs" />
+    <Compile Include="Models\Students.cs" />
+    <Compile Include="Models\Teachers.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,7 +145,16 @@
     <Compile Include="WebServices\GeoLocation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Assets\teachers\bc2be815-cd3d-459d-a312-49e60229c80c.jpeg" />
+    <Content Include="App_Assets\teachers\c00b3008-a41a-4586-a338-1a589256b1bd.jpeg" />
+    <Content Include="App_Assets\teachers\c7a24783-6cbd-4583-a094-a72f2ac2e389.jpeg" />
+    <Content Include="App_Assets\teachers\f4e08e66-6485-4c73-b1f8-52edae4f497a.jpeg" />
+    <Content Include="App_Assets\teachers\f9a42fd9-87e4-41d6-87c6-50fa3526db49.jpeg" />
+    <Content Include="App_Assets\teachers\fbb51b24-2763-4d30-b175-6a78856ade4b.jpeg" />
+    <Content Include="App_Assets\teachers\no_avatar.png" />
+    <Content Include="App_Data\iso-3166.txt" />
     <Content Include="Content\Accounts.css" />
+    <Content Include="Content\Courses.css" />
     <Content Include="Content\Icons.css" />
     <Content Include="Content\image-control.css" />
     <Content Include="Content\jqui-custom-datepicker.css" />
@@ -148,6 +163,8 @@
     <Content Include="Content\popup.css" />
     <Content Include="Content\Selections.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Content\Students.css" />
+    <Content Include="Content\Teachers.css" />
     <Content Include="Content\UI-Images\Abort.png" />
     <Content Include="Content\UI-Images\Accept.png" />
     <Content Include="Content\UI-Images\admin.png" />
@@ -194,6 +211,15 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="App_Code\Helper.cshtml" />
+    <Content Include="App_Data\Events.json" />
+    <Content Include="App_Data\Logins.json" />
+    <Content Include="App_Data\Notifications.json" />
+    <Content Include="App_Data\RenewPasswordCommands.json" />
+    <Content Include="App_Data\UnverifiedEmails.json" />
+    <Content Include="App_Data\Users.json" />
+    <Content Include="App_Data\Courses.json" />
+    <Content Include="App_Data\Students.json" />
+    <Content Include="App_Data\Teachers.json" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_header.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
@@ -210,20 +236,7 @@
     <Content Include="Views\Accounts\LoginsJournal.cshtml" />
     <Content Include="Views\Accounts\ManageUsers.cshtml" />
     <Content Include="Views\Accounts\GetUsers.cshtml" />
-    <Content Include="Views\Medias\About.cshtml" />
-    <Content Include="Views\Medias\Create.cshtml" />
-    <Content Include="Views\Medias\Details.cshtml" />
-    <Content Include="Views\Medias\Edit.cshtml" />
-    <Content Include="Views\Medias\GetMedias.cshtml" />
-    <Content Include="Views\Medias\GetMediasCategoriesList.cshtml" />
-    <Content Include="Views\Medias\List.cshtml" />
-    <Content Include="Views\Medias\MediaForm.cshtml" />
-    <Content Include="Views\Medias\GetMediasOwnersList.cshtml" />
     <None Include="Properties\PublishProfiles\Wikimedia-2026 - Web Deploy.pubxml" />
-    <Content Include="Views\Medias\GetMediaLikes.cshtml" />
-    <Content Include="Views\Medias\GetMediaDetails_2.cshtml" />
-    <Content Include="Views\Medias\RenderComments.cshtml" />
-    <Content Include="Views\Medias\GetMediaDetails_1.cshtml" />
     <Content Include="Views\Students\List.cshtml" />
   </ItemGroup>
   <PropertyGroup>
