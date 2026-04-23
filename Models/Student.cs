@@ -6,13 +6,13 @@ using System.Web;
 
 namespace Models
 {
-    public class Students : Record
+    public class Student : Record
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
     }
 }

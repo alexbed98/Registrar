@@ -1,3 +1,36 @@
-<div>
-    <h1>allo</h1>
+
+
+<div id="StudentListPanel" class="studentListLayout">
+
 </div>
+
+
+@section Scripts {
+    <script>
+        let studentsListAutoRefreshPanel = null;
+
+        $(() => {
+            newSession(600);
+
+            $.get("/Students/GetStudents?forceRefresh=true", function (html) {
+                $("#StudentListPanel").html(html);
+            });
+
+            studentsListAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "StudentListPanel",
+                    "/Students/GetStudents",
+                    5,
+                    studentsListPostRefresh);
+
+
+            function studentsListPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+                    
+                }
+            }
+
+        })
+    </script>
+}

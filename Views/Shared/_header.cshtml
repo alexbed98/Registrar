@@ -19,7 +19,11 @@
 <div class="section roundedBorder">
     <div class="headerMenu">
         <i class="siteIcon"></i>
-        <div class="pageTitle"> @ViewBag.PageTitle </div>
+        <div style="display: flex; flex-direction: row; gap: 7px;">
+            <a href="/@controller/List" class="selectedSection">Étudiants</a>
+            <a class="unselectedSection">Cours</a>
+            <a class="unselectedSection">Profs</a>
+        </div>
         <!-- Direct action context command icons -->
         @switch (action)
         {
@@ -97,16 +101,9 @@
                 break;
             case "details":
                 <div id="mainMenuPanel" class="menu">
-                    <div id="likesPanel">
-                        <!-- auto refreshed -->
-                    </div>
                     @if (userCanWrite && (bool)ViewBag.IsOwner)
                     {
                         <a href="/@controller/Edit" class="cmdIcon fa fa-pen-to-square" title="Modifier..."></a>
-                        <i class="cmdIcon fa fa-trash-can"
-                           title="Effacer"
-                           onclick="bootbox.confirm(`<b style=color:red>Effacer le Media : </b><h3>@currentMediaTitle?</h3>`, function(result){ if (result) window.location = '/@controller/Delete'; })">
-                        </i>
                     }
 
                     <a href="/@controller/List" class="cmdIcon fa fa-square-xmark" title="retour"></a>
@@ -124,7 +121,7 @@
             case "edit":
                 <div id="mainMenuPanel" class="menu">
                     <i class="cmdIcon submitCmd fa fa-circle-check" title="Soumettre" onclick="document.getElementById('submit').click()"></i>
-                    <a href="/@controller/Details/@currentMediaId" class="cmdIcon fa fa-square-xmark" title="Annuler"></a>
+                    <a href="/@controller/List" class="cmdIcon fa fa-square-xmark" title="Annuler"></a>
                 </div>
                 break;
             case "loginsjournal":

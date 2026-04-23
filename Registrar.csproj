@@ -136,7 +136,8 @@
     <Compile Include="Models\Registrations.cs" />
     <Compile Include="Models\RenewPasswordView.cs" />
     <Compile Include="Models\SelectListUtilities.cs" />
-    <Compile Include="Models\Students.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentsRepository.cs" />
     <Compile Include="Models\Teachers.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersRepository.cs" />
@@ -181,6 +182,8 @@
     <Content Include="Content\_layout.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="WebApp.png" />
+    <Content Include="logo.jpg" />
     <Content Include="Scripts\autoRefreshPanel.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\image-control.js" />
@@ -206,7 +209,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="WebApp.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -238,6 +240,7 @@
     <Content Include="Views\Accounts\GetUsers.cshtml" />
     <None Include="Properties\PublishProfiles\Wikimedia-2026 - Web Deploy.pubxml" />
     <Content Include="Views\Students\List.cshtml" />
+    <Content Include="Views\Students\GetStudents.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
