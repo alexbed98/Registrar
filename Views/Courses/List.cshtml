@@ -1,0 +1,34 @@
+<div id="CourseListPanel" class="courseListLayout">
+
+</div>
+
+
+@section Scripts {
+    <script>
+        let coursesListAutoRefreshPanel = null;
+
+        $(() => {
+            newSession(600);
+
+            $.get("/Courses/GetCources?forceRefresh=true", function (html) {
+                $("#CourseListPanel").html(html);
+            });
+
+            coursesListAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "CourseListPanel",
+                    "/Courses/GetCourses",
+                    5,
+                    coursesListPostRefresh);
+
+
+            function coursesListPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+        })
+    </script>
+}

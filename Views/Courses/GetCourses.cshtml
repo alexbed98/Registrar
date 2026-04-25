@@ -1,0 +1,37 @@
+@model IEnumerable<Models.Course>
+
+@if (Model != null && Model.Any())
+{
+    Dictionary<int, List<Course>> sessions = new Dictionary<int, List<Course>>();
+
+    foreach (var course in Model)
+    {
+        var numSession = course.Session;
+
+        if (!sessions.ContainsKey(numSession))
+        {
+            sessions[numSession] = new List<Course>();
+        }
+
+        sessions[numSession].Add(course);
+
+    }
+
+    foreach (var num in sessions.OrderBy(num => num.Key))
+    {
+        <details>
+            <summary>Session @num.Key</summary>
+            <ul style="padding-left: 15px; list-style: none;">
+                @foreach (var course in num.Value)
+                {
+                    <li><a href="/Courses/Details/@course.Id" style="color: blue;">@course.Code</a> @course.Title</li>
+                }
+            </ul>
+        </details>
+    }
+}
+else
+{
+    <p>Aucun cours...</p>
+}
+

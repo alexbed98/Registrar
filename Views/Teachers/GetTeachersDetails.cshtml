@@ -1,0 +1,20 @@
+@model Models.Teacher
+
+@{ 
+    int days = (DateTime.Now - Model.StartDate).Days;
+    int years = days / 365;
+}
+
+
+<details open>
+    <summary><i class="fa-solid fa-teacher"></i> @Model.FirstName @Model.LastName</summary>
+    <ul style="padding: 15px; list-style: none;">
+        <li><i class="fa-solid fa-barcode"></i> @Model.Code</li>
+        <li><i class="fa-solid fa-phone"></i> @Model.Phone</li>
+        <li><i class="fa-solid fa-paper-plane"></i> @Model.Email</li>
+        <li></li>
+        <li>Embauché le @Model.StartDate.ToShortDateString()</li>
+        <li> @years ans d'ancienneté</li>
+    </ul>
+</details>
+

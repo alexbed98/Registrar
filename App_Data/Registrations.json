@@ -28,5 +28,35 @@
     "CourseId": 13,
     "Year": "2024",
     "Id": 5
+  },
+  {
+    "StudentId": 1,
+    "CourseId": 7,
+    "Year": "2026",
+    "Id": 6
+  },
+  {
+    "StudentId": 4,
+    "CourseId": 7,
+    "Year": "2026",
+    "Id": 7
+  },
+  {
+    "StudentId": 7,
+    "CourseId": 7,
+    "Year": "2024",
+    "Id": 8
+  },
+  {
+    "StudentId": 14,
+    "CourseId": 7,
+    "Year": "2024",
+    "Id": 9
+  },
+  {
+    "StudentId": 16,
+    "CourseId": 7,
+    "Year": "2022",
+    "Id": 10
   }
 ]

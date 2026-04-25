@@ -1,0 +1,17 @@
+[
+  {
+    "TeacherId": 1,
+    "CourseId": 7,
+    "Year": "2024"
+  },
+  {
+    "TeacherId": 2,
+    "CourseId": 7,
+    "Year": "2022"
+  },
+  {
+    "TeacherId": 3,
+    "CourseId": 7,
+    "Year": "2026"
+  },
+]

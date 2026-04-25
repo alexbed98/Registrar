@@ -1,0 +1,34 @@
+<div id="TeacherListPanel" class="teacherListLayout">
+
+</div>
+
+
+@section Scripts {
+    <script>
+        let teachersListAutoRefreshPanel = null;
+
+        $(() => {
+            newSession(600);
+
+            $.get("/Teachers/GetTeachers?forceRefresh=true", function (html) {
+                $("#TeacherListPanel").html(html);
+            });
+
+            teachersListAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "TeacherListPanel",
+                    "/Teachers/GetTeachers",
+                    5,
+                    teachersListPostRefresh);
+
+
+            function teachersListPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+        })
+    </script>
+}

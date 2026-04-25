@@ -1,0 +1,41 @@
+@model Models.Course
+
+<div>
+    <h1>@Model.Code</h1>
+    <h2>Session @Model.Session</h2>
+    <h3>@Model.Title</h3>
+</div>
+
+<hr />
+
+<h1>Étudiants inscrits</h1>
+
+<div id="CoursesRegistrationsPanel" class="coursesRegistrationsLayout">
+
+</div>
+
+@section Scripts {
+    <script>
+        let coursesRegistrationsAutoRefreshPanel = null;
+
+        $(() => {
+            newSession(600);
+
+            coursesRegistrationsAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "CoursesRegistrationsPanel",
+                    "/Courses/GetCoursesRegistrations/@Model.Id",
+                    5,
+                    coursesRegistrationsPostRefresh);
+
+            function coursesRegistrationsPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+        })
+    </script>
+}
+

@@ -110,9 +110,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccessControl.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="DAL\AssetAttribute.cs" />
     <Compile Include="DAL\DB.cs" />
     <Compile Include="DAL\ImageAsset.cs" />
@@ -124,6 +126,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Allocation.cs" />
+    <Compile Include="Models\AllocationsRepository.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CoursesRepository.cs" />
     <Compile Include="Models\EmailView.cs" />
@@ -140,7 +143,8 @@
     <Compile Include="Models\SelectListUtilities.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentsRepository.cs" />
-    <Compile Include="Models\Teachers.cs" />
+    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\TeachersRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,6 +229,7 @@
     <Content Include="App_Data\Students.json" />
     <Content Include="App_Data\Teachers.json" />
     <Content Include="App_Data\Registrations.json" />
+    <Content Include="App_Data\Allocations.json" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_header.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
@@ -247,6 +252,15 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\GetStudentsDetails.cshtml" />
     <Content Include="Views\Students\GetStudentsRegistrations.cshtml" />
+    <Content Include="Views\Courses\List.cshtml" />
+    <Content Include="Views\Courses\GetCourses.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\GetCoursesRegistrations.cshtml" />
+    <Content Include="Views\Teachers\List.cshtml" />
+    <Content Include="Views\Teachers\GetTeachers.cshtml" />
+    <Content Include="Views\Teachers\Details.cshtml" />
+    <Content Include="Views\Teachers\GetTeachersDetails.cshtml" />
+    <Content Include="Views\Teachers\GetTeachersAllocations.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

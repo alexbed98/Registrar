@@ -15,9 +15,14 @@ namespace DAL
 
         static public StudentsRepository Students { get; set; }
             = new StudentsRepository();
+        static public TeachersRepository Teachers { get; set; }
+            = new TeachersRepository();
 
         static public CoursesRepository Courses { get; set; }
             = new CoursesRepository();
+
+        static public AllocationsRepository Allocations { get; set; }
+            = new AllocationsRepository();
 
         static public RegistrationsRepository Registrations { get; set; }
             = new RegistrationsRepository();

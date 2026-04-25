@@ -18,14 +18,6 @@
         $(() => {
             newSession(600);
 
-            @*$.get("/Students/GetStudentsDetails/@Model.Id?forceRefresh=true", function (html) {
-                $("#StudentsDetailsPanel").html(html);
-            });
-
-            $.get("/Students/GetStudentsRegistration/@Model.Id?forceRefresh=true", function (html) {
-                $("#StudentsRegistrationsPanel").html(html);
-            });*@
-
             studentsDetailsAutoRefreshPanel =
                 new AutoRefreshedPanel(
                     "StudentsDetailsPanel",

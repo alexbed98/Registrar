@@ -1,0 +1,61 @@
+@model Models.Course
+
+@{
+    var courseRegistrations = DAL.DB.Registrations.ToList().Where(r => r.CourseId == Model.Id).ToList();
+}
+
+@if (courseRegistrations.Count() > 0)
+{
+
+    Dictionary<string, List<Student>> cohort = new Dictionary<string, List<Student>>();
+    Dictionary<string, Teacher> allocations = new Dictionary<string, Teacher>();
+
+    foreach (var reg in courseRegistrations)
+    {
+        string year = reg.Year;
+
+        if (!cohort.ContainsKey(year))
+        {
+            cohort[year] = new List<Student>();
+        }
+
+        var stud = DAL.DB.Students.Get(reg.StudentId);
+
+        if (stud != null)
+        {
+            cohort[year].Add(stud);
+        }
+
+        var teacher = DAL.DB.Allocations.GetTeacherByAlloc(year, reg.CourseId);
+
+        if (teacher != null)
+        {
+            if (!allocations.ContainsKey(year))
+            {
+                allocations[year] = teacher;
+            }
+        }
+    }
+
+    foreach (var year in cohort)
+    {
+        Teacher teacher = allocations[year.Key];
+        string teacherName = (allocations[year.Key] != null) ? teacher.LastName + " " + teacher.FirstName : "";
+
+        <details>
+            <summary>Cohorte @year.Key - <a href="/Teachers/Details/@teacher.Id" style="color: dodgerblue;">@teacherName</a></summary>
+            <ul style="padding-left: 15px; margin-bottom: 0; list-style: none;">
+                @foreach (var stud in @year.Value)
+                {
+                    <li><a href="/Students/Details/@stud.Id" style="color: blue;"> @stud.Code</a> @stud.LastName @stud.FirstName</li>
+                }
+            </ul>
+        </details>
+    }
+
+}
+else
+{
+    <p>Aucune inscription...</p>
+}
+

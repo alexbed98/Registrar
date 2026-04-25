@@ -1,0 +1,53 @@
+@model Models.Teacher
+
+<div id="TeachersDetailsPanel" class="teachersDetailsLayout">
+
+</div>
+
+<hr />
+
+<div id="TeachersAllocationsPanel" class="teachersAllocationsLayout">
+
+</div>
+
+@section Scripts {
+    <script>
+        let teachersDetailsAutoRefreshPanel = null;
+        let teachersAllocationsAutoRefreshPanel = null;
+
+        $(() => {
+            newSession(600);
+
+            teachersDetailsAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "TeachersDetailsPanel",
+                    "/Teachers/GetTeachersDetails/@Model.Id",
+                    5,
+                    teachersDetailsPostRefresh);
+
+            teachersAllocationsAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "TeachersAllocationsPanel",
+                    "/Teachers/GetTeachersAllocations/@Model.Id",
+                    5,
+                    teachersAllocationsPostRefresh);
+
+
+            function teachersDetailsPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+            function teachersAllocationsPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+        })
+    </script>
+}
+
