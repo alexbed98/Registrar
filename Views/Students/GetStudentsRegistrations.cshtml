@@ -1,0 +1,50 @@
+@model Models.Student
+
+@{
+    var studentRegistrations = DAL.DB.Registrations.ToList().Where(r => r.StudentId == Model.Id).ToList();
+}
+
+<h2>Inscriptions</h2>
+
+@if (studentRegistrations.Count() > 0)
+{
+
+    Dictionary<string, List<Course>> registrationYears = new Dictionary<string, List<Course>>();
+
+    foreach (var reg in studentRegistrations)
+    {
+        string year = reg.Year;
+
+        if (!registrationYears.ContainsKey(year))
+        {
+            registrationYears[year] = new List<Course>();
+        }
+
+        var course = DAL.DB.Courses.Get(reg.CourseId);
+
+        if (course != null)
+        {
+            registrationYears[year].Add(course);
+        }
+
+    }
+
+    foreach (var year in registrationYears)
+    {
+        <details>
+            <summary>@year.Key</summary>
+            <ul style="padding-left: 15px; list-style: none;">
+                @foreach (var course in @year.Value)
+                {
+                    <li>[@course.Session]<a href="/Courses/Details/@course.Code" style="color: blue;"> @course.Code</a> @course.Title</li>
+                }
+            </ul>
+        </details>
+    }
+
+}
+else
+{
+    <p>Aucune inscription...</p>
+}
+

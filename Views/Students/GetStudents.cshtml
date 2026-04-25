@@ -14,16 +14,17 @@
         }
 
         cohort[year].Add(stud);
+
     }
 
-    foreach (var year in cohort)
+    foreach (var year in cohort.OrderByDescending(y => y.Key))
     {
         <details>
             <summary>Cohorte @year.Key</summary>
-            <ul>
+            <ul style="padding-left: 15px;">
                 @foreach (var stud in @year.Value)
                 {
-                    <li>@stud.Code @stud.LastName @stud.FirstName</li>
+                    <li style="list-style-type: none;"><a href="/Students/Details/@stud.Id" style="color: blue;">@stud.Code</a> @stud.LastName @stud.FirstName</li>
                 }
             </ul>
         </details>

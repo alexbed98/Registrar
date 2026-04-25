@@ -1,0 +1,61 @@
+@model Models.Student
+
+<div id="StudentsDetailsPanel" class="studentsDetailsLayout">
+
+</div>
+
+<hr />
+
+<div id="StudentsRegistrationsPanel" class="studentsRegistrationsLayout">
+
+</div>
+
+@section Scripts {
+    <script>
+        let studentsDetailsAutoRefreshPanel = null;
+        let studentsRegistrationsAutoRefreshPanel = null;
+
+        $(() => {
+            newSession(600);
+
+            @*$.get("/Students/GetStudentsDetails/@Model.Id?forceRefresh=true", function (html) {
+                $("#StudentsDetailsPanel").html(html);
+            });
+
+            $.get("/Students/GetStudentsRegistration/@Model.Id?forceRefresh=true", function (html) {
+                $("#StudentsRegistrationsPanel").html(html);
+            });*@
+
+            studentsDetailsAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "StudentsDetailsPanel",
+                    "/Students/GetStudentsDetails/@Model.Id",
+                    5,
+                    studentsDetailsPostRefresh);
+
+            studentsRegistrationsAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "StudentsRegistrationsPanel",
+                    "/Students/GetStudentsRegistrations/@Model.Id",
+                    5,
+                    studentsRegistrationsPostRefresh);
+
+
+            function studentsDetailsPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+            function studentsRegistrationsPostRefresh(fromRefresh = true) {
+                if (fromRefresh) {
+
+
+                }
+            }
+
+        })
+    </script>
+}
+

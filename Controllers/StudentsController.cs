@@ -30,13 +30,58 @@ namespace Controllers
             {
                 var students = DB.Students.ToList();
 
-                if (DB.Users.HasChanged ||
-                    DB.Students.HasChanged ||
-                    forceRefresh)
+                if (DB.Users.HasChanged || DB.Students.HasChanged || forceRefresh)
                 {
                     InitSessionVariables();
 
                     return PartialView("GetStudents", students);
+                }
+                return null;
+            }
+            catch (System.Exception ex)
+            {
+                return Content("Erreur interne" + ex.Message, "text/html");
+            }
+        }
+
+        public ActionResult Details(int id)
+        {
+            var student = DB.Students.Get(id);
+
+            return View(student);
+        }
+
+        public ActionResult GetStudentsDetails(int id, bool forceRefresh = false)
+        {
+            var student = DB.Students.Get(id);
+
+            try
+            {
+                if (DB.Users.HasChanged || DB.Students.HasChanged || forceRefresh)
+                {
+                    InitSessionVariables();
+
+                    return PartialView("GetStudentsDetails", student);
+                }
+                return null;
+            }
+            catch (System.Exception ex)
+            {
+                return Content("Erreur interne" + ex.Message, "text/html");
+            }
+        }
+
+        public ActionResult GetStudentsRegistrations(int id, bool forceRefresh = false)
+        {
+            var student = DB.Students.Get(id);
+
+            try
+            {
+                if (DB.Users.HasChanged || DB.Students.HasChanged || forceRefresh)
+                {
+                    InitSessionVariables();
+
+                    return PartialView("GetStudentsRegistrations", student);
                 }
                 return null;
             }

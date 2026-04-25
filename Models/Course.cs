@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Models
 {
-    public class Courses : Record
+    public class Course : Record
     {
         public string Code { get; set; }
         public string Title { get; set; }

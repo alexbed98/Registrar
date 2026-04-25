@@ -14,17 +14,66 @@
     bool userIsAdmin = userConnected ? Models.User.ConnectedUser.IsAdmin : false;
     bool userCanWrite = userConnected ? Models.User.ConnectedUser.CanWrite : false;
     string index = RouteConfig.DefaultAction();
-}
+
+    var studentsClass = "unselectedSection";
+    var coursesClass = "unselectedSection";
+    var teachersClass = "unselectedSection";
+
+    var sectionTitle = "";
+    var subSectionTitle = "";
+
+    switch (controller)
+    {
+        case "students":
+            sectionTitle = "Étudiant";
+            studentsClass = "selectedSection";
+            break;
+        case "courses":
+            sectionTitle = "Cours";
+            coursesClass = "selectedSection";
+            break;
+        case "teachers":
+            sectionTitle = "Prof";
+            teachersClass = "selectedSection";
+            break;
+    }
+
+    switch (action)
+    {
+        case "details":
+            subSectionTitle = "Détails";
+            break;
+        case "edit":
+            subSectionTitle = "Modification";
+            break;
+        case "add":
+            subSectionTitle = "Ajout";
+            break;
+    }
+
+    }
 
 <div class="section roundedBorder">
     <div class="headerMenu">
-        <i class="siteIcon"></i>
-        <div style="display: flex; flex-direction: row; gap: 7px;">
-            <a href="/@controller/List" class="selectedSection">Étudiants</a>
-            <a class="unselectedSection">Cours</a>
-            <a class="unselectedSection">Profs</a>
-        </div>
-        <!-- Direct action context command icons -->
+        <i class="siteIcon" href="/Students/list"></i>
+
+        @switch (action)
+        {
+            case "login":
+                <div style="font-size: 20px; font-weight: bold;">Registrar</div>
+                break;
+            case "list":
+                <div style="display: flex; flex-direction: row; gap: 7px;">
+                    <a href="/Students/List" class="@studentsClass">Étudiants</a>
+                    <a href="/Courses/List" class="@coursesClass">Cours</a>
+                    <a href="/Teachers/List" class="@teachersClass">Profs</a>
+                </div>
+                break;
+            case "details":
+                <div style="font-size: 20px; font-weight: bold;">@sectionTitle - @subSectionTitle</div>
+                break;
+        }
+
         @switch (action)
         {
             case "login": break;
@@ -101,7 +150,7 @@
                 break;
             case "details":
                 <div id="mainMenuPanel" class="menu">
-                    @if (userCanWrite && (bool)ViewBag.IsOwner)
+                    @if (userCanWrite)
                     {
                         <a href="/@controller/Edit" class="cmdIcon fa fa-pen-to-square" title="Modifier..."></a>
                     }
@@ -136,7 +185,7 @@
 
     </div>
 </div>
-@if (search && controller=="medias" && action == "list")
+@if (search && controller == "medias" && action == "list")
 {
     <div class="searchBar">
         <input type="search" id="searchInput" class="section roundedBorder searchBarItem" value="@searchString" placeholder="Recherche...">

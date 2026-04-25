@@ -1,0 +1,12 @@
+@model Models.Student
+
+<details open>
+    <summary><i class="fa-solid fa-graduation-cap"></i> @Model.FirstName @Model.LastName</summary>
+    <ul style="padding: 15px; list-style: none;">
+        <li><i class="fa-solid fa-barcode"></i> @Model.Code</li>
+        <li><i class="fa-solid fa-phone"></i> @Model.Phone</li>
+        <li><i class="fa-solid fa-paper-plane"></i> @Model.Email</li>
+        <li><i class="fa-solid fa-birthday-cake"></i> @Model.BirthDate.ToLongDateString()</li>
+    </ul>
+</details>
+
