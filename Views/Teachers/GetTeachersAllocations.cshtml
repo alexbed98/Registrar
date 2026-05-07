@@ -1,4 +1,50 @@
+@model Models.Teacher
 
+@{
+    var teacherAllocations = DAL.DB.Allocations.ToList().Where(r => r.TeacherId == Model.Id).ToList();
+}
 
+<h2>Allocations</h2>
 
-<h1>allocations</h1>
+@if (teacherAllocations.Count() > 0)
+{
+
+    Dictionary<string, List<Course>> allocationYears = new Dictionary<string, List<Course>>();
+
+    foreach (var alloc in teacherAllocations)
+    {
+        string year = alloc.Year;
+
+        if (!allocationYears.ContainsKey(year))
+        {
+            allocationYears[year] = new List<Course>();
+        }
+
+        var course = DAL.DB.Courses.Get(alloc.CourseId);
+
+        if (course != null)
+        {
+            allocationYears[year].Add(course);
+        }
+
+    }
+
+    foreach (var year in allocationYears)
+    {
+        <details id="allocation_details_@year.Key@Model.Id">
+            <summary>@year.Key</summary>
+            <ul style="padding-left: 15px; list-style: none;">
+                @foreach (var course in @year.Value)
+                {
+                    <li>[@course.Session]<a href="/Courses/Details/@course.Id" style="color: blue;"> @course.Code</a> @course.Title</li>
+                }
+            </ul>
+        </details>
+    }
+
+}
+else
+{
+    <p>Aucune allocation...</p>
+}
+

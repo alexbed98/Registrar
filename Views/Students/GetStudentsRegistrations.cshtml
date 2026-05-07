@@ -31,7 +31,7 @@
 
     foreach (var year in registrationYears)
     {
-        <details>
+        <details id="registration_details_@year.Key@Model.Id">
             <summary>@year.Key</summary>
             <ul style="padding-left: 15px; list-style: none;">
                 @foreach (var course in @year.Value)

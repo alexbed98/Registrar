@@ -19,7 +19,7 @@
 
     foreach (var year in cohort.OrderByDescending(y => y.Key))
     {
-        <details>
+        <details id="student_details_@year.Key">
             <summary>Cohorte @year.Key</summary>
             <ul style="padding-left: 15px;">
                 @foreach (var stud in @year.Value)
@@ -34,4 +34,3 @@ else
 {
     <p>Aucun etudiant...</p>
 }
-

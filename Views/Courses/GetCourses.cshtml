@@ -19,7 +19,7 @@
 
     foreach (var num in sessions.OrderBy(num => num.Key))
     {
-        <details>
+        <details id="course_details_@num.Key">
             <summary>Session @num.Key</summary>
             <ul style="padding-left: 15px; list-style: none;">
                 @foreach (var course in num.Value)

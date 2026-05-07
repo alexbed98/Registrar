@@ -39,11 +39,23 @@
 
     foreach (var year in cohort)
     {
-        Teacher teacher = allocations[year.Key];
-        string teacherName = (allocations[year.Key] != null) ? teacher.LastName + " " + teacher.FirstName : "";
+        string teacherName = "";
+        Teacher teacher = null;
+
+        if (allocations.ContainsKey(year.Key))
+        {
+            teacher = allocations[year.Key];
+            teacherName = (allocations[year.Key] != null) ? teacher.LastName + " " + teacher.FirstName : "";
+        }
 
         <details>
-            <summary>Cohorte @year.Key - <a href="/Teachers/Details/@teacher.Id" style="color: dodgerblue;">@teacherName</a></summary>
+            <summary>
+                Cohorte @year.Key -
+                    @if (teacher != null)
+                    {
+                        <a href="/Teachers/Details/@teacher.Id" style="color: dodgerblue;">@teacherName</a>
+                    }
+            </summary>
             <ul style="padding-left: 15px; margin-bottom: 0; list-style: none;">
                 @foreach (var stud in @year.Value)
                 {
