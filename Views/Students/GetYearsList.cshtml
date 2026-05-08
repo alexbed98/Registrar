@@ -1,7 +1,7 @@
 @{
     var cohort = DAL.DB.Students.GetAllCohorts().OrderByDescending(y => y.Key);
 
-    string selectedYear = (string)Session["SelectedYear"];
+    string selectedYear = (string)Session["StudentsSelectedYear"];
 }
 
 <select id="yearSelect" class="form-control">

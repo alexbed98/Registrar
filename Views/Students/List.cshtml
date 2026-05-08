@@ -1,6 +1,6 @@
 @{
-    string search = Session["Search"] != null ? ((bool)Session["Search"]).ToString() : false.ToString();
-    string searchString = Session["SearchString"] != null ? (string)Session["SearchString"] : "";
+    string search = Session["StudentsSearch"] != null ? ((bool)Session["StudentsSearch"]).ToString() : false.ToString();
+    string searchString = Session["StudentsSearchString"] != null ? (string)Session["StudentsSearchString"] : "";
 }
 
 <div id="StudentListPanel" class="studentListLayout">
@@ -19,10 +19,12 @@
 
             $.get("/Students/GetStudents?forceRefresh=true", function (html) {
                 $("#StudentListPanel").html(html);
+                studentsListPostRefresh();
             });
 
             $(document).ready(function () {
                 RestoreDetailsState();
+                searchBarPostRefresh();
             });
 
             studentsListAutoRefreshPanel =

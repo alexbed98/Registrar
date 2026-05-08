@@ -15,9 +15,9 @@ namespace Controllers
     {
         private void InitSessionVariables()
         {
-            if (Session["Search"] == null) Session["Search"] = false;
-            if (Session["SearchString"] == null) Session["SearchString"] = "";
-            if (Session["SelectedYear"] == null) Session["SelectedYear"] = "";
+            if (Session["StudentsSearch"] == null) Session["StudentsSearch"] = false;
+            if (Session["StudentsSearchString"] == null) Session["StudentsSearchString"] = "";
+            if (Session["StudentsSelectedYear"] == null) Session["StudentsSelectedYear"] = "";
         }
 
         public ActionResult List()
@@ -33,8 +33,8 @@ namespace Controllers
 
                 IEnumerable<Student> students = DB.Students.ToList();
 
-                bool search = (bool)Session["Search"];
-                string searchString = (string)Session["SearchString"];
+                bool search = (bool)Session["StudentsSearch"];
+                string searchString = (string)Session["StudentsSearchString"];
 
                 if (search)
                 {
@@ -43,7 +43,7 @@ namespace Controllers
                         .Contains(searchString.ToLower()));
                 }
 
-                string selectedYear = (string)Session["SelectedYear"];
+                string selectedYear = (string)Session["StudentsSelectedYear"];
 
                 if (selectedYear != "")
                 {
@@ -116,7 +116,7 @@ namespace Controllers
             {
                 InitSessionVariables();
 
-                bool search = (bool)Session["Search"];
+                bool search = (bool)Session["StudentsSearch"];
 
                 if (search)
                 {
@@ -132,20 +132,20 @@ namespace Controllers
 
         public ActionResult ToggleSearch()
         {
-            if (Session["Search"] == null) Session["Search"] = false;
-            Session["Search"] = !(bool)Session["Search"];
+            if (Session["StudentsSearch"] == null) Session["StudentsSearch"] = false;
+            Session["StudentsSearch"] = !(bool)Session["StudentsSearch"];
             return RedirectToAction("List");
         }
 
         public ActionResult SetSearchYear(string value)
         {
-            Session["SelectedYear"] = value;
+            Session["StudentsSelectedYear"] = value;
             return RedirectToAction("List");
         }
 
         public ActionResult SetSearchString(string value)
         {
-            Session["SearchString"] = value;
+            Session["StudentsSearchString"] = value;
 
             return RedirectToAction("List");
         }

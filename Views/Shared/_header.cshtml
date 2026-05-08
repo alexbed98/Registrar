@@ -5,8 +5,44 @@
     string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
     string action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString().ToLower();
 
-    bool search = Session["Search"] != null ? (bool)Session["Search"] : false;
-    string searchString = Session["SearchString"] != null ? (string)Session["SearchString"] : "";
+    bool search = false;
+    string searchString = "";
+
+    switch (controller)
+    {
+        case "students":
+            search = Session["StudentsSearch"] != null
+                ? (bool)Session["StudentsSearch"]
+                : false;
+
+            searchString = Session["StudentsSearchString"] != null
+                ? (string)Session["StudentsSearchString"]
+                : "";
+
+            break;
+
+        case "courses":
+            search = Session["CoursesSearch"] != null
+                ? (bool)Session["CoursesSearch"]
+                : false;
+
+            searchString = Session["CoursesSearchString"] != null
+                ? (string)Session["CoursesSearchString"]
+                : "";
+
+            break;
+
+        case "teachers":
+            search = Session["TeachersSearch"] != null
+                ? (bool)Session["TeachersSearch"]
+                : false;
+
+            searchString = Session["TeachersSearchString"] != null
+                ? (string)Session["TeachersSearchString"]
+                : "";
+
+            break;
+    }
 
     var Categories = (List<string>)Session["Categories"];
 
@@ -50,8 +86,7 @@
             subSectionTitle = "Ajout";
             break;
     }
-
-    }
+}
 
 <div class="section roundedBorder">
     <div class="headerMenu">
@@ -185,17 +220,16 @@
 
     </div>
 </div>
-@if (search && controller == "students" && action == "list")
+@if (search && action == "list")
 {
     <div class="searchBar">
         <input type="search" id="searchInput" class="section roundedBorder searchBarItem" value="@searchString" placeholder="Recherche...">
-        <div id="yearSelectPanel" class="searchBarItem">
-            <!-- Dynamically refreshed -->
-            @{
-                Html.RenderPartial("GetYearsList");
-            }
-
-        </div>
+        @if (controller == "students")
+        {
+            <div id="yearSelectPanel" class="searchBarItem">
+                    @{ Html.RenderPartial("GetYearsList"); }
+            </div>
+        }
     </div>
 }
 

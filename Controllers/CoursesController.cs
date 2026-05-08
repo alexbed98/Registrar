@@ -13,6 +13,11 @@ namespace Controllers
 {
     public class CoursesController : Controller
     {
+        private void InitSessionVariables()
+        {
+            if (Session["CoursesSearch"] == null) Session["CoursesSearch"] = false;
+            if (Session["CoursesSearchString"] == null) Session["CoursesSearchString"] = "";
+        }
         public ActionResult List()
         {
             return View();
@@ -22,7 +27,18 @@ namespace Controllers
         {
             try
             {
-                var courses = DB.Courses.ToList();
+                InitSessionVariables();
+
+                IEnumerable<Course> courses = DB.Courses.ToList();
+
+                bool search = (bool)Session["CoursesSearch"];
+                string searchString = (string)Session["CoursesSearchString"];
+
+                if (search)
+                {
+                    courses = courses.Where(c =>
+                        c.Title.ToLower().Contains(searchString.ToLower())).ToList();
+                }
 
                 if (DB.Users.HasChanged || DB.Courses.HasChanged || forceRefresh)
                 {
@@ -60,6 +76,19 @@ namespace Controllers
             {
                 return Content("Erreur interne" + ex.Message, "text/html");
             }
+        }
+        public ActionResult ToggleSearch()
+        {
+            if (Session["CoursesSearch"] == null) Session["CoursesSearch"] = false;
+            Session["CoursesSearch"] = !(bool)Session["CoursesSearch"];
+            return RedirectToAction("List");
+        }
+
+        public ActionResult SetSearchString(string value)
+        {
+            Session["CoursesSearchString"] = value;
+
+            return RedirectToAction("List");
         }
 
     }

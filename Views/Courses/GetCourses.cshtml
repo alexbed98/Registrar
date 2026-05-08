@@ -24,7 +24,7 @@
             <ul style="padding-left: 15px; list-style: none;">
                 @foreach (var course in num.Value)
                 {
-                    <li><a href="/Courses/Details/@course.Id" style="color: blue;">@course.Code</a> @course.Title</li>
+                    <li class="courseText"><a href="/Courses/Details/@course.Id" style="color: blue;">@course.Code</a> @course.Title</li>
                 }
             </ul>
         </details>
