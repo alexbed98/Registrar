@@ -18,6 +18,12 @@ namespace Controllers
             if (Session["StudentsSearch"] == null) Session["StudentsSearch"] = false;
             if (Session["StudentsSearchString"] == null) Session["StudentsSearchString"] = "";
             if (Session["StudentsSelectedYear"] == null) Session["StudentsSelectedYear"] = "";
+            if (Session["CurrentStudentId"] == null) Session["CurrentStudentId"] = 0;
+        }
+
+        private void ResetCurrentStudentInfo()
+        {
+            Session["CurrentStudentId"] = 0;
         }
 
         public ActionResult List()
@@ -66,6 +72,8 @@ namespace Controllers
         public ActionResult Details(int id)
         {
             var student = DB.Students.Get(id);
+
+            Session["CurrentStudentId"] = id;
 
             return View(student);
         }

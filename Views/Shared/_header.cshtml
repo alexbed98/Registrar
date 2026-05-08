@@ -5,6 +5,10 @@
     string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
     string action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString().ToLower();
 
+    int currentStudentId = Session["CurrentStudentId"] != null ? (int)Session["CurrentStudentId"] : 0;
+    Student currentStudent = DAL.DB.Students.Get(currentStudentId);
+
+
     bool search = false;
     string searchString = "";
 
@@ -187,7 +191,14 @@
                 <div id="mainMenuPanel" class="menu">
                     @if (userCanWrite)
                     {
+                        string fullName = currentStudent.FirstName + " " + currentStudent.LastName;
+
                         <a href="/@controller/Edit" class="cmdIcon fa fa-pen-to-square" title="Modifier..."></a>
+
+                        <i class="cmdIcon fa fa-trash-can"
+                           title="Effacer"
+                           onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@fullName ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete'; })">
+                        </i>
                     }
 
                     <a href="/@controller/List" class="cmdIcon fa fa-square-xmark" title="retour"></a>
