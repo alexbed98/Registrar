@@ -38,7 +38,9 @@ namespace Controllers
 
                 if (search)
                 {
-                    students = students.Where(s => (s.FirstName.ToLower() + " " + s.LastName.ToLower()).Contains(searchString));
+                    students = students.Where(s => 
+                        (s.FirstName.ToLower() + " " + s.LastName.ToLower())
+                        .Contains(searchString.ToLower()));
                 }
 
                 string selectedYear = (string)Session["SelectedYear"];
@@ -138,6 +140,13 @@ namespace Controllers
         public ActionResult SetSearchYear(string value)
         {
             Session["SelectedYear"] = value;
+            return RedirectToAction("List");
+        }
+
+        public ActionResult SetSearchString(string value)
+        {
+            Session["SearchString"] = value;
+
             return RedirectToAction("List");
         }
     }

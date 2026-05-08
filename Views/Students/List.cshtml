@@ -1,5 +1,6 @@
-﻿@{
+@{
     string search = Session["Search"] != null ? ((bool)Session["Search"]).ToString() : false.ToString();
+    string searchString = Session["SearchString"] != null ? (string)Session["SearchString"] : "";
 }
 
 <div id="StudentListPanel" class="studentListLayout">
@@ -11,6 +12,7 @@
     <script>
         let studentsListAutoRefreshPanel = null;
         let yearsSelectAutoRefreshPanel = null;
+        let keywordsOnchangeTimer = null;
 
         $(() => {
             newSession(600);
@@ -42,6 +44,8 @@
                 if (fromRefresh) {
                     RestoreDetailsState();
                     yearsSelectPostRefresh();
+                    searchBarPostRefresh();
+                    highlightKeyword();
                 }
             }
 
@@ -56,6 +60,27 @@
                 });
                 $("#yearSelect").on('change', function () {
                     window.location = "/Students/SetSearchYear?value=" + $("#yearSelect").val();
+                });
+            }
+
+            function searchBarPostRefresh() {
+                $("#searchInput").off();
+                $("#searchInput").on('keyup', function () {
+                    clearTimeout(keywordsOnchangeTimer);
+                    /* delay request by 0.5 seconds */
+                    keywordsOnchangeTimer = setTimeout(() => {
+                        window.location = "/Students/SetSearchString?value=" + $("#searchInput").val();
+                    }, 1000 /* 1 seconds */);
+                });
+                $("#searchInput").on('search', function () { /* click on clear */
+                    clearTimeout(keywordsOnchangeTimer);
+                    window.location = "/Students/SetSearchString?value=" + $("#searchInput").val();
+                });
+                $("#searchInput").on("focus", function () {
+                    studentsListAutoRefreshPanel.pause();
+                });
+                $("#searchInput").on("blur", function () {
+                    studentsListAutoRefreshPanel.restart();
                 });
             }
 
@@ -78,6 +103,18 @@
 
                         if (details_dom != undefined)
                             details_dom.open = localStorage.getItem(key) == "true";
+                    }
+                }
+            }
+
+            function highlightKeyword() {
+                if ("@search" == "True") {
+                    let keyword = "@searchString";
+                    if (keyword.length > 0) {
+                        let students = document.getElementsByClassName('studentText');
+                        Array.from(students).forEach(student => {
+                            highlight(keyword.toLowerCase(), student);
+                        });
                     }
                 }
             }
