@@ -1,5 +1,6 @@
 ﻿using DAL;
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,5 +15,9 @@ namespace Models
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        [JsonIgnore]
+        public string Year => Code.Substring(0, 4);
+
     }
 }

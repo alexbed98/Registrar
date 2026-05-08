@@ -1,0 +1,14 @@
+@{
+    var cohort = DAL.DB.Students.GetAllCohorts().OrderByDescending(y => y.Key);
+
+    string selectedYear = (string)Session["SelectedYear"];
+}
+
+<select id="yearSelect" class="form-control">
+    <option value="" selected>Toutes les années</option>
+    @foreach (var c in cohort)
+    {
+        string selected = selectedYear == c.Key ? "selected" : "";
+        <option value="@c.Key" @selected>@c.Key</option>
+    }
+</select>

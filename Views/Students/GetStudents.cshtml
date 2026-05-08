@@ -2,29 +2,25 @@
 
 @if (Model != null && Model.Any())
 {
-    Dictionary<string, List<Student>> cohort = new Dictionary<string, List<Student>>();
+    var cohort = Model
+        .GroupBy(s => s.Year)
+        .OrderByDescending(g => g.Key);
 
-    foreach (var stud in Model)
-    {
-        string year = stud.Code.Substring(0, 4);
-
-        if (!cohort.ContainsKey(year))
-        {
-            cohort[year] = new List<Student>();
-        }
-
-        cohort[year].Add(stud);
-
-    }
-
-    foreach (var year in cohort.OrderByDescending(y => y.Key))
+    foreach (var year in cohort)
     {
         <details id="student_details_@year.Key">
             <summary>Cohorte @year.Key</summary>
+
             <ul style="padding-left: 15px;">
-                @foreach (var stud in @year.Value)
+                @foreach (var stud in year)
                 {
-                    <li style="list-style-type: none;"><a href="/Students/Details/@stud.Id" style="color: blue;">@stud.Code</a> @stud.LastName @stud.FirstName</li>
+                    <li style="list-style-type: none;">
+                        <a href="/Students/Details/@stud.Id" style="color: blue;">
+                            @stud.Code
+                        </a>
+
+                        @stud.LastName @stud.FirstName
+                    </li>
                 }
             </ul>
         </details>
@@ -32,5 +28,5 @@
 }
 else
 {
-    <p>Aucun etudiant...</p>
+    <p>Aucun étudiant...</p>
 }

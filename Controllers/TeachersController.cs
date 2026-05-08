@@ -22,7 +22,7 @@ namespace Controllers
         {
             try
             {
-                var teachers = DB.Teachers.ToList();
+                var teachers = DB.Teachers.ToList().OrderBy(t => t.LastName);
 
                 if (DB.Users.HasChanged || DB.Teachers.HasChanged || forceRefresh)
                 {

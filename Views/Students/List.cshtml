@@ -1,3 +1,7 @@
+﻿@{
+    string search = Session["Search"] != null ? ((bool)Session["Search"]).ToString() : false.ToString();
+}
+
 <div id="StudentListPanel" class="studentListLayout">
 
 </div>
@@ -6,6 +10,7 @@
 @section Scripts {
     <script>
         let studentsListAutoRefreshPanel = null;
+        let yearsSelectAutoRefreshPanel = null;
 
         $(() => {
             newSession(600);
@@ -25,11 +30,33 @@
                     5,
                     studentsListPostRefresh);
 
+            yearsSelectAutoRefreshPanel =
+                new AutoRefreshedPanel(
+                    "yearSelectPanel",
+                    "/Students/GetYearsList",
+                    -1 /* manually refreshed */,
+                    yearsSelectPostRefresh);
+
 
             function studentsListPostRefresh(fromRefresh = true) {
                 if (fromRefresh) {
-                    RestoreDetailsState()
+                    RestoreDetailsState();
+                    yearsSelectPostRefresh();
                 }
+            }
+
+            function yearsSelectPostRefresh() {
+
+                $("#yearSelect").off();
+                $("#yearSelect").on("focus", function () {
+                    yearsSelectAutoRefreshPanel.pause();
+                });
+                $("#yearSelect").on("blur", function () {
+                    yearsSelectAutoRefreshPanel.restart();
+                });
+                $("#yearSelect").on('change', function () {
+                    window.location = "/Students/SetSearchYear?value=" + $("#yearSelect").val();
+                });
             }
 
             function RestoreDetailsState() {
