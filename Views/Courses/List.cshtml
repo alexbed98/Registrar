@@ -45,19 +45,13 @@
                 $("#searchInput").off();
                 $("#searchInput").on('keyup', function () {
                     clearTimeout(keywordsOnchangeTimer);
-                    /* delay request by 0.5 seconds */
                     keywordsOnchangeTimer = setTimeout(() => {
-                        $.get("/Courses/SetSearchString?value=" + $("#searchInput").val(), function () {
-                            coursesListAutoRefreshPanel.refresh();
-                        });
-                    }, 1000 /* 1 seconds */);
+                        window.location = "/Courses/SetSearchString?value=" + $("#searchInput").val();
+                    }, 1000);
                 });
-                $("#searchInput").on('search', function () { /* click on clear */
+                $("#searchInput").on('search', function () {
                     clearTimeout(keywordsOnchangeTimer);
-
-                    $.get("/Courses/SetSearchString?value=" + $("#searchInput").val(), function () {
-                        coursesListAutoRefreshPanel.refresh();
-                    });
+                    window.location = "/Courses/SetSearchString?value=" + $("#searchInput").val();
                 });
                 $("#searchInput").on("focus", function () {
                     coursesListAutoRefreshPanel.pause();

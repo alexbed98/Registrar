@@ -1,3 +1,9 @@
+@{
+    string search = Session["TeachersSearch"] != null ? ((bool)Session["TeachersSearch"]).ToString() : false.ToString();
+
+    string searchString = Session["TeachersSearchString"] != null ? (string)Session["TeachersSearchString"] : "";
+}
+
 <div id="TeacherListPanel" class="teacherListLayout">
 
 </div>
@@ -6,12 +12,17 @@
 @section Scripts {
     <script>
         let teachersListAutoRefreshPanel = null;
+        let keywordsOnchangeTimer = null;
 
         $(() => {
             newSession(600);
 
             $.get("/Teachers/GetTeachers?forceRefresh=true", function (html) {
                 $("#TeacherListPanel").html(html);
+            });
+
+            $(document).ready(function () {
+                searchBarPostRefresh();
             });
 
             teachersListAutoRefreshPanel =
@@ -21,11 +32,42 @@
                     5,
                     teachersListPostRefresh);
 
-
             function teachersListPostRefresh(fromRefresh = true) {
                 if (fromRefresh) {
+                    searchBarPostRefresh();
+                    highlightKeyword();
+                }
+            }
 
+            function searchBarPostRefresh() {
+                $("#searchInput").off();
+                $("#searchInput").on('keyup', function () {
+                    clearTimeout(keywordsOnchangeTimer);
+                    keywordsOnchangeTimer = setTimeout(() => {
+                        window.location = "/Teachers/SetSearchString?value=" + $("#searchInput").val();
+                    }, 1000);
+                });
+                $("#searchInput").on('search', function () {
+                    clearTimeout(keywordsOnchangeTimer);
+                    window.location = "/Teachers/SetSearchString?value=" + $("#searchInput").val();
+                });
+                $("#searchInput").on("focus", function () {
+                    teachersListAutoRefreshPanel.pause();
+                });
+                $("#searchInput").on("blur", function () {
+                    teachersListAutoRefreshPanel.restart();
+                });
+            }
 
+            function highlightKeyword() {
+                if ("@search" == "True") {
+                    let keyword = "@searchString";
+                    if (keyword.length > 0) {
+                        let teachers = document.getElementsByClassName('teacherText');
+                        Array.from(teachers).forEach(teacher => {
+                            highlight(keyword.toLowerCase(), teacher);
+                        });
+                    }
                 }
             }
 

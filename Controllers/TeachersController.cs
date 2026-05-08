@@ -13,6 +13,11 @@ namespace Controllers
 {
     public class TeachersController : Controller
     {
+        private void InitSessionVariables()
+        {
+            if (Session["TeachersSearch"] == null) Session["TeachersSearch"] = false;
+            if (Session["TeachersSearchString"] == null) Session["TeachersSearchString"] = "";
+        }
         public ActionResult List()
         {
             return View();
@@ -22,7 +27,19 @@ namespace Controllers
         {
             try
             {
-                var teachers = DB.Teachers.ToList().OrderBy(t => t.LastName);
+                InitSessionVariables();
+
+                IEnumerable<Teacher> teachers = DB.Teachers.ToList().OrderBy(t => t.LastName);
+
+                bool search = (bool)Session["TeachersSearch"];
+                string searchString = (string)Session["TeachersSearchString"];
+
+                if (search)
+                {
+                    teachers = teachers.Where(s =>
+                         (s.FirstName.ToLower() + " " + s.LastName.ToLower())
+                         .Contains(searchString.ToLower()));
+                }
 
                 if (DB.Users.HasChanged || DB.Teachers.HasChanged || forceRefresh)
                 {
@@ -76,6 +93,20 @@ namespace Controllers
             {
                 return Content("Erreur interne" + ex.Message, "text/html");
             }
+        }
+
+        public ActionResult ToggleSearch()
+        {
+            if (Session["TeachersSearch"] == null) Session["TeachersSearch"] = false;
+            Session["TeachersSearch"] = !(bool)Session["TeachersSearch"];
+            return RedirectToAction("List");
+        }
+
+        public ActionResult SetSearchString(string value)
+        {
+            Session["TeachersSearchString"] = value;
+
+            return RedirectToAction("List");
         }
     }
 }
