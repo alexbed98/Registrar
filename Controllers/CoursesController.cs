@@ -91,5 +91,32 @@ namespace Controllers
             return RedirectToAction("List");
         }
 
+        [UserAccess(Access.Admin)]
+        public ActionResult Delete(int id)
+        {
+            Course course = DB.Courses.Get(id);
+
+            if (course != null)
+            {
+                var registrations = stud.Registrations;
+
+                foreach (var reg in registrations)
+                {
+                    int regId = reg.Id;
+
+                    DB.Registrations.Delete(regId);
+                }
+
+                DB.Events.Add("DeleteStudent " + stud.FullName);
+                DB.Students.Delete(id);
+
+                Session["CurrentStudentId"] = 0;
+
+                return RedirectToAction("List");
+            }
+
+            return null;
+        }
+
     }
 }

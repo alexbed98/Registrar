@@ -8,6 +8,12 @@
     int currentStudentId = Session["CurrentStudentId"] != null ? (int)Session["CurrentStudentId"] : 0;
     Student currentStudent = DAL.DB.Students.Get(currentStudentId);
 
+    int currentCourseId = Session["CurrentCourseId"] != null ? (int)Session["CurrentCourseId"] : 0;
+    Course currentCourse = DAL.DB.Courses.Get(currentCourseId);
+
+    int currentTeacherId = Session["CurrentTeacherId"] != null ? (int)Session["CurrentTeacherId"] : 0;
+    Teacher currentTeacher = DAL.DB.Teachers.Get(currentTeacherId);
+
 
     bool search = false;
     string searchString = "";
@@ -202,10 +208,28 @@
                     {
                         <a href="/@controller/Edit" class="cmdIcon fa fa-pen-to-square" title="Modifier..."></a>
 
-                        <i class="cmdIcon fa fa-trash-can"
-                           title="Effacer"
-                           onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentStudent.FullName ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentStudentId'; })">
-                        </i>
+                        if (controller == "students")
+                        {
+                            <i class="cmdIcon fa fa-trash-can"
+                               title="Effacer"
+                               onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentStudent.FullName ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentStudentId'; })">
+                            </i>
+                        }
+                        else if (controller == "courses")
+                        {
+                            <i class="cmdIcon fa fa-trash-can"
+                               title="Effacer"
+                               onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentCourse.Title ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentCourseId'; })">
+                            </i>
+                        }
+                        else if (controller == "teachers")
+                        {
+                            <i class="cmdIcon fa fa-trash-can"
+                               title="Effacer"
+                               onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentTeacher.FullName ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentTeacherId'; })">
+                            </i>
+                        }
+                        
                     }
 
                     <a href="/@controller/List" class="cmdIcon fa fa-square-xmark" title="retour"></a>

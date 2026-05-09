@@ -179,14 +179,8 @@ namespace Controllers
 
             if (stud != null)
             {
-                var registrations = stud.Registrations;
-
-                foreach (var reg in registrations)
-                {
-                    int regId = reg.Id;
-
-                    DB.Registrations.Delete(regId);
-                }
+                stud.DeleteAllRegistrations();
+                stud.DeleteNextSessionRegistrations();
 
                 DB.Events.Add("DeleteStudent " + stud.FullName);
                 DB.Students.Delete(id);
