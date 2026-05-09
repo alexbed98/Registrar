@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace Models
 {
@@ -16,6 +17,15 @@ namespace Models
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public override bool IsValid()
+        {
+            if (DB.Students.ToList().Where(u => u.Email == Email && u.Id != Id).Any()) return false;
+            if (!IsAlpha(FirstName)) return false;
+            if (!IsAlpha(LastName)) return false;
+            if (!IsEmail(Email)) return false;
+            if (!IsPhone(Phone)) return false;
+            return true;
+        }
 
         [JsonIgnore] public int Year => int.Parse(Code.Substring(0, 4));
 

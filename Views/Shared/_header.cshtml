@@ -5,54 +5,10 @@
     string controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower();
     string action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString().ToLower();
 
-    int currentStudentId = Session["CurrentStudentId"] != null ? (int)Session["CurrentStudentId"] : 0;
-    Student currentStudent = DAL.DB.Students.Get(currentStudentId);
-
-    int currentCourseId = Session["CurrentCourseId"] != null ? (int)Session["CurrentCourseId"] : 0;
-    Course currentCourse = DAL.DB.Courses.Get(currentCourseId);
-
-    int currentTeacherId = Session["CurrentTeacherId"] != null ? (int)Session["CurrentTeacherId"] : 0;
-    Teacher currentTeacher = DAL.DB.Teachers.Get(currentTeacherId);
-
+    int currentId = 0;
 
     bool search = false;
     string searchString = "";
-
-    switch (controller)
-    {
-        case "students":
-            search = Session["StudentsSearch"] != null
-                ? (bool)Session["StudentsSearch"]
-                : false;
-
-            searchString = Session["StudentsSearchString"] != null
-                ? (string)Session["StudentsSearchString"]
-                : "";
-
-            break;
-
-        case "courses":
-            search = Session["CoursesSearch"] != null
-                ? (bool)Session["CoursesSearch"]
-                : false;
-
-            searchString = Session["CoursesSearchString"] != null
-                ? (string)Session["CoursesSearchString"]
-                : "";
-
-            break;
-
-        case "teachers":
-            search = Session["TeachersSearch"] != null
-                ? (bool)Session["TeachersSearch"]
-                : false;
-
-            searchString = Session["TeachersSearchString"] != null
-                ? (string)Session["TeachersSearchString"]
-                : "";
-
-            break;
-    }
 
     var Categories = (List<string>)Session["Categories"];
 
@@ -71,16 +27,48 @@
     switch (controller)
     {
         case "students":
+            search = Session["StudentsSearch"] != null
+                ? (bool)Session["StudentsSearch"]
+                : false;
+
+            searchString = Session["StudentsSearchString"] != null
+                ? (string)Session["StudentsSearchString"]
+                : "";
+
             sectionTitle = "Étudiant";
             studentsClass = "selectedSection";
+            currentId = Session["CurrentStudentId"] != null ? (int)Session["CurrentStudentId"] : 0;
+
             break;
+
         case "courses":
+            search = Session["CoursesSearch"] != null
+                ? (bool)Session["CoursesSearch"]
+                : false;
+
+            searchString = Session["CoursesSearchString"] != null
+                ? (string)Session["CoursesSearchString"]
+                : "";
+
             sectionTitle = "Cours";
             coursesClass = "selectedSection";
+            currentId = Session["CurrentCourseId"] != null ? (int)Session["CurrentCourseId"] : 0;
+
             break;
+
         case "teachers":
+            search = Session["TeachersSearch"] != null
+                ? (bool)Session["TeachersSearch"]
+                : false;
+
+            searchString = Session["TeachersSearchString"] != null
+                ? (string)Session["TeachersSearchString"]
+                : "";
+
             sectionTitle = "Prof";
             teachersClass = "selectedSection";
+            currentId = Session["CurrentTeacherId"] != null ? (int)Session["CurrentTeacherId"] : 0;
+
             break;
     }
 
@@ -117,10 +105,13 @@
                     <a href="/Teachers/List" class="@teachersClass">Profs</a>
                 </div>
                 break;
-            case "details":
+            case "edit":
                 <div style="font-size: 20px; font-weight: bold;">@sectionTitle - @subSectionTitle</div>
                 break;
-        }
+            case "details":
+                    <div style="font-size: 20px; font-weight: bold;">@sectionTitle - @subSectionTitle</div>
+                    break;
+            }
 
         @switch (action)
         {
@@ -206,30 +197,14 @@
                 <div id="mainMenuPanel" class="menu">
                     @if (userCanWrite)
                     {
-                        <a href="/@controller/Edit" class="cmdIcon fa fa-pen-to-square" title="Modifier..."></a>
 
-                        if (controller == "students")
-                        {
-                            <i class="cmdIcon fa fa-trash-can"
-                               title="Effacer"
-                               onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentStudent.FullName ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentStudentId'; })">
-                            </i>
-                        }
-                        else if (controller == "courses")
-                        {
-                            <i class="cmdIcon fa fa-trash-can"
-                               title="Effacer"
-                               onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentCourse.Title ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentCourseId'; })">
-                            </i>
-                        }
-                        else if (controller == "teachers")
-                        {
-                            <i class="cmdIcon fa fa-trash-can"
-                               title="Effacer"
-                               onclick="bootbox.confirm(`<b style=color:red>Effacer l'étudiant : </b><h3>@currentTeacher.FullName ?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentTeacherId'; })">
-                            </i>
-                        }
-                        
+                        <a href="/@controller/Edit/@currentId" class="cmdIcon fa fa-pen-to-square" title="Modifier..."></a>
+
+                        <i class="cmdIcon fa fa-trash-can"
+                           title="Effacer"
+                           onclick="bootbox.confirm(`<b style=color:red>Effacer </b><h3>?</h3>`, function(result){ if (result) window.location = '/@controller/Delete/@currentId'; })">
+                        </i>
+
                     }
 
                     <a href="/@controller/List" class="cmdIcon fa fa-square-xmark" title="retour"></a>
@@ -262,6 +237,7 @@
 
     </div>
 </div>
+
 @if (search && action == "list")
 {
     <div class="searchBar">
@@ -269,7 +245,7 @@
         @if (controller == "students")
         {
             <div id="yearSelectPanel" class="searchBarItem">
-                    @{ Html.RenderPartial("GetYearsList"); }
+                @{ Html.RenderPartial("GetYearsList"); }
             </div>
         }
     </div>

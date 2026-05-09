@@ -118,6 +118,35 @@ namespace Controllers
             }
         }
 
+        [UserAccess(Access.Admin)]
+        public ActionResult Edit()
+        {
+            int id = (int)Session["CurrentStudentId"];
+            Student student = DB.Students.Get(id);
+            if (student != null)
+            {
+                ViewBag.Registrations = student.NextSessionCoursesToSelectList;
+                //ViewBag.Courses = DB.Courses.NextSessionToSelectList;
+                return View(DB.Students.Get(id));
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [UserAccess(Access.Admin)]
+        public ActionResult Edit(Student student, List<int> selectedCoursesId)
+        {
+            if (student.IsValid())
+            {
+                student.Id = (int)Session["CurrentStudentId"];
+                student.Code = (string)Session["code"];
+                //DB.Students.Update(student, selectedCoursesId);
+                DB.Students.Update(student);
+                return RedirectToAction("Details", new { id = student.Id });
+            }
+            return Redirect("/Accounts/Login?message=Accès illégal! &success=false");
+        }
+
         public ActionResult GetYearsList(bool forceRefresh = false)
         {
             try
@@ -191,6 +220,15 @@ namespace Controllers
             }
 
             return null;
+        }
+
+        public JsonResult EmailAvailable(string Email)
+        {
+            bool NotAvailable = false;
+            int currentStudentId = (int)Session["CurrentStudentId"];
+            Student foundUser = DB.Students.ToList().Where(u => u.Email == Email && u.Id != currentStudentId).FirstOrDefault();
+            NotAvailable = foundUser != null;
+            return Json(NotAvailable, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -264,6 +264,8 @@
     <Content Include="Views\Teachers\GetTeachersAllocations.cshtml" />
     <Content Include="Views\Students\GetYearsList.cshtml" />
     <Content Include="Views\Students\SetYear.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\StudentForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

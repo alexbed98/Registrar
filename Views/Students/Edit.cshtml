@@ -1,0 +1,17 @@
+@model Models.Student
+@{
+    Html.RenderPartial("StudentForm");
+}
+
+@section Scripts {
+    <script>
+        $(() => {
+            newSession(620);
+            initFormValidation();
+            addConflictValidation(
+                "/Students/EmailAvailable",
+                'Email' /* field unicity check */,
+                'submit' /* form submit button Id */);
+
+    </script>
+}
