@@ -17,7 +17,14 @@ namespace Controllers
         {
             if (Session["TeachersSearch"] == null) Session["TeachersSearch"] = false;
             if (Session["TeachersSearchString"] == null) Session["TeachersSearchString"] = "";
+            if (Session["CurrentTeacherId"] == null) Session["CurrentTeacherId"] = 0;
         }
+
+        private void ResetCurrentTeacherInfo()
+        {
+            Session["CurrentTeacherId"] = 0;
+        }
+
         public ActionResult List()
         {
             return View();
@@ -55,6 +62,8 @@ namespace Controllers
         public ActionResult Details(int id)
         {
             var teacher = DB.Teachers.Get(id);
+
+            Session["CurrentTeacherId"] = id;
 
             return View(teacher);
         }
@@ -107,6 +116,27 @@ namespace Controllers
             Session["TeachersSearchString"] = value;
 
             return RedirectToAction("List");
+        }
+
+        [UserAccess(Access.Admin)]
+        public ActionResult Delete(int id)
+        {
+            Teacher teacher = DB.Teachers.Get(id);
+
+            if (teacher != null)
+            {
+                teacher.DeleteAllAllocations();
+                teacher.DeleteNextSessionAllocations();
+
+                DB.Events.Add("DeleteTeacher " + teacher.FullName);
+                DB.Teachers.Delete(id);
+
+                ResetCurrentTeacherInfo();
+
+                return RedirectToAction("List");
+            }
+
+            return null;
         }
     }
 }

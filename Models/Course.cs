@@ -45,5 +45,17 @@ namespace Models
             }
         }
 
+        public void DeleteAllRegistrations()
+        {
+            foreach (Registration registration in Registrations)
+                DB.Registrations.Delete(registration.Id);
+        }
+
+        public void DeleteAllAllocations()
+        {
+            foreach (Allocation allocation in Allocations)
+                DB.Allocations.Delete(allocation.Id);
+        }
+
     }
 }

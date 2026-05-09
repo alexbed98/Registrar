@@ -185,7 +185,7 @@ namespace Controllers
                 DB.Events.Add("DeleteStudent " + stud.FullName);
                 DB.Students.Delete(id);
 
-                Session["CurrentStudentId"] = 0;
+                ResetCurrentStudentInfo();
 
                 return RedirectToAction("List");
             }

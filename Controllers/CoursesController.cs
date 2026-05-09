@@ -17,7 +17,14 @@ namespace Controllers
         {
             if (Session["CoursesSearch"] == null) Session["CoursesSearch"] = false;
             if (Session["CoursesSearchString"] == null) Session["CoursesSearchString"] = "";
+            if (Session["CurrentCourseId"] == null) Session["CurrentCourseId"] = 0;
         }
+
+        private void ResetCurrentCourseInfo()
+        {
+            Session["CurrentCourseId"] = 0;
+        }
+
         public ActionResult List()
         {
             return View();
@@ -54,6 +61,8 @@ namespace Controllers
         public ActionResult Details(int id)
         {
             var course = DB.Courses.Get(id);
+
+            Session["CurrentCourseId"] = id;
 
             return View(course);
         }
@@ -98,19 +107,13 @@ namespace Controllers
 
             if (course != null)
             {
-                var registrations = stud.Registrations;
+                course.DeleteAllRegistrations();
+                course.DeleteAllAllocations();
 
-                foreach (var reg in registrations)
-                {
-                    int regId = reg.Id;
+                DB.Events.Add("DeleteCourse " + course.Title);
+                DB.Courses.Delete(id);
 
-                    DB.Registrations.Delete(regId);
-                }
-
-                DB.Events.Add("DeleteStudent " + stud.FullName);
-                DB.Students.Delete(id);
-
-                Session["CurrentStudentId"] = 0;
+                ResetCurrentCourseInfo();
 
                 return RedirectToAction("List");
             }
