@@ -9,12 +9,12 @@
 @if (studentRegistrations.Count() > 0)
 {
 
-    Dictionary<string, List<Course>> registrationYears = new Dictionary<string, List<Course>>();
+    Dictionary<int, List<Course>> registrationYears = new Dictionary<int, List<Course>>();
 
     foreach (var reg in studentRegistrations)
     {
-        string year = reg.Year;
-
+        int year = reg.Year;
+        
         if (!registrationYears.ContainsKey(year))
         {
             registrationYears[year] = new List<Course>();

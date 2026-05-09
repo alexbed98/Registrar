@@ -135,6 +135,7 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginCredential.cs" />
     <Compile Include="Models\LoginsRepository.cs" />
+    <Compile Include="Models\NextSession.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationsRepository.cs" />
     <Compile Include="Models\Registration.cs" />
@@ -262,6 +263,7 @@
     <Content Include="Views\Teachers\GetTeachersDetails.cshtml" />
     <Content Include="Views\Teachers\GetTeachersAllocations.cshtml" />
     <Content Include="Views\Students\GetYearsList.cshtml" />
+    <Content Include="Views\Students\SetYear.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

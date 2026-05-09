@@ -98,6 +98,9 @@
 
         @switch (action)
         {
+            case "setyear":
+                <div style="font-size: 20px; font-weight: bold;">Session courante</div>
+                break;
             case "login":
                 <div style="font-size: 20px; font-weight: bold;">Registrar</div>
                 break;
@@ -115,6 +118,12 @@
 
         @switch (action)
         {
+            case "setyear":
+                <div id="mainMenuPanel" class="menu">
+                    <i class="cmdIcon submitCmd fa fa-circle-check" title="Soumettre" onclick="document.getElementById('submit').click()"></i>
+                    <a class="cmdIcon fa fa-square-xmark" title="Annuler" onclick="history.back()"></a>
+                </div>
+                break;
             case "login": break;
             case "subscribe":
                 <div id="mainMenuPanel" class="menu">

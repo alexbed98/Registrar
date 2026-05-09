@@ -14,7 +14,7 @@ namespace Models
 
             foreach (var alloc in allocations)
             {
-                if (alloc.CourseId == courseId && alloc.Year == year)
+                if (alloc.CourseId == courseId && alloc.Year == int.Parse(year))
                 {
                     var teacher = DB.Teachers.Get(alloc.TeacherId);
                     return teacher;

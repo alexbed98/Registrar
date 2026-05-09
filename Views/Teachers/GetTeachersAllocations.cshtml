@@ -9,11 +9,11 @@
 @if (teacherAllocations.Count() > 0)
 {
 
-    Dictionary<string, List<Course>> allocationYears = new Dictionary<string, List<Course>>();
+    Dictionary<int, List<Course>> allocationYears = new Dictionary<int, List<Course>>();
 
     foreach (var alloc in teacherAllocations)
     {
-        string year = alloc.Year;
+        int year = alloc.Year;
 
         if (!allocationYears.ContainsKey(year))
         {

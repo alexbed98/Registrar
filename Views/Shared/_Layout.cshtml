@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string session = Models.NextSession.ValidSessions.Contains(1) ? "Automne" : "Hiver";
+    int year = Models.NextSession.Year;
+}
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,12 +32,20 @@
         </div>
 
         <div id="footerPanel" class="section footerPanel roundedBorder">
-            &copy; @DateTime.Now.Year - Application Web
-            <img src="/updatingView.gif" 
-                 style="width:24px; display:none" 
+            <a href="/Students/SetYear">Session courante: @session @year</a>
+            <img src="/updatingView.gif"
+                 style="width:24px; display:none"
                  id="updatingView"
-                 title="Rafraichissement de la vue"/>
+                 title="Rafraichissement de la vue" />
         </div>
+
+        @*<div id="footerPanel" class="section footerPanel roundedBorder">
+                &copy; @DateTime.Now.Year - Application Web
+                <img src="/updatingView.gif"
+                     style="width:24px; display:none"
+                     id="updatingView"
+                     title="Rafraichissement de la vue" />
+            </div>*@
 
     </div>
 

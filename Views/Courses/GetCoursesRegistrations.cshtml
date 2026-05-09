@@ -12,7 +12,7 @@
 
     foreach (var reg in courseRegistrations)
     {
-        string year = reg.Year;
+        string year = reg.Year.ToString();
 
         if (!cohort.ContainsKey(year))
         {

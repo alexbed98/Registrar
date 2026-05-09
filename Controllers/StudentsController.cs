@@ -53,7 +53,7 @@ namespace Controllers
 
                 if (selectedYear != "")
                 {
-                    students = students.Where(s => (s.Year == selectedYear));
+                    students = students.Where(s => (s.Year == int.Parse(selectedYear)));
                 }
 
                 if (DB.Users.HasChanged || DB.Students.HasChanged || forceRefresh)
@@ -155,6 +155,20 @@ namespace Controllers
         {
             Session["StudentsSearchString"] = value;
 
+            return RedirectToAction("List");
+        }
+
+        public ActionResult SetYear()
+        {
+            ViewBag.Year = NextSession.Year;
+            ViewBag.Session = NextSession.ValidSessions.Contains(1) ? "Automne" : "Hiver";
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SetYear(int year, string session)
+        {
+            NextSession.CurrentDate = new DateTime(year, (session == "Automne" ? 8 : 1), 15);
             return RedirectToAction("List");
         }
     }

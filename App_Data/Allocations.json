@@ -2,26 +2,26 @@
   {
     "TeacherId": 1,
     "CourseId": 7,
-    "Year": "2024"
+    "Year": 2024
   },
   {
     "TeacherId": 1,
     "CourseId": 8,
-    "Year": "2025"
+    "Year": 2025
   },
   {
     "TeacherId": 1,
     "CourseId": 2,
-    "Year": "2022"
+    "Year": 2022
   },
   {
     "TeacherId": 2,
     "CourseId": 3,
-    "Year": "2026"
+    "Year": 2026
   },
   {
     "TeacherId": 3,
     "CourseId": 7,
-    "Year": "2026"
+    "Year": 2026
   }
 ]
