@@ -171,5 +171,32 @@ namespace Controllers
             NextSession.CurrentDate = new DateTime(year, (session == "Automne" ? 8 : 1), 15);
             return RedirectToAction("List");
         }
+
+        [UserAccess(Access.Admin)]
+        public ActionResult Delete(int id)
+        {
+            Student stud = DB.Students.Get(id);
+
+            if (stud != null)
+            {
+                var registrations = stud.Registrations;
+
+                foreach (var reg in registrations)
+                {
+                    int regId = reg.Id;
+
+                    DB.Registrations.Delete(regId);
+                }
+
+                DB.Events.Add("DeleteStudent " + stud.FullName);
+                DB.Students.Delete(id);
+
+                Session["CurrentStudentId"] = 0;
+
+                return RedirectToAction("List");
+            }
+
+            return null;
+        }
     }
 }
