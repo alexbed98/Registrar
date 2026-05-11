@@ -1,10 +1,10 @@
-@model Models.Student
+@model Models.Teacher
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <input type="hidden" name="Code" value="@Model.Code"/>
+    <input type="hidden" name="Code" value="@Model.Code" />
 
     <div>
         <details open>
@@ -17,7 +17,7 @@
                         <input name="FirstName" id="FirstName"
                                class="form-control Alpha"
                                required
-                               RequireMessage="Veuillez entrer le prénom de l'étudiant"
+                               RequireMessage="Veuillez entrer le prénom de l'enseignant"
                                InvalidMessage="Caractère illégal"
                                value="@Model.FirstName" />
 
@@ -29,43 +29,41 @@
                         <input name="LastName" id="LastName"
                                class="form-control Alpha"
                                required
-                               RequireMessage="Veuillez entrer le nom de l'étudiant"
+                               RequireMessage="Veuillez entrer le nom de l'enseignant"
                                InvalidMessage="Caractère illégal"
                                value="@Model.LastName" />
                     </fieldset>
                 </li>
                 <li style="list-style-type: none;">
                     <fieldset>
-                        <legend>Date de naissance</legend>
-                        <input name="BirthDate" class="form-control datepicker" value="@Model.BirthDate"
+                        <legend>Date d'embauche</legend>
+                        <input name="StartDate" class="form-control datepicker" value="@Model.StartDate"
                                required
-                               RequireMessage="Veuillez entrer la date de naissance de l'étudiant"
+                               RequireMessage="Veuillez entrer la date d'embauche de l'enseignant"
                                InvalidMessage="Date invalide" />
                     </fieldset>
                 </li>
                 <li style="list-style-type: none;">
                     <fieldset>
-                        <legend>Courriel</legend>
-                        <input name="Email" id="Email"
-                               class="form-control Alpha"
-                               required
-                               RequireMessage="Veuillez entrer le courriel de l'étudiant"
-                               InvalidMessage="Caractère illégal"
-                               value="@Model.Email" />
-                    </fieldset>
-                </li>
-                <li style="list-style-type: none;">
-                    <fieldset>
                         <legend>Téléphone</legend>
-                        <input class="form-control Phone"
+                        <input class="form-control"
                                name="Phone"
                                id="Phone"
                                placeholder="(000) 000-0000"
                                required
-                               RequireMessage="Veuillez entrer le téléphone de l'étudiant"
+                               RequireMessage="Veuillez entrer le téléphone de l'enseignant"
                                InvalidMessage="Téléphone invalide"
                                value="@Model.Phone" />
                     </fieldset>
+                </li>
+                <li style="list-style-type: none;">
+                    <label for="Avatar" class="form-label">Avatar </label>
+
+                    <div class='imageUploader'
+                         controlId='Avatar'
+                         imageSrc='@Model.Avatar'
+                         title="Cliquez/glisser une photo">
+                    </div>
                 </li>
             </ul>
         </details>

@@ -160,6 +160,8 @@
     <Content Include="App_Assets\teachers\f9a42fd9-87e4-41d6-87c6-50fa3526db49.jpeg" />
     <Content Include="App_Assets\teachers\fbb51b24-2763-4d30-b175-6a78856ade4b.jpeg" />
     <Content Include="App_Assets\teachers\no_avatar.png" />
+    <Content Include="App_Assets\teachers\profile_pic.jpg" />
+    <Content Include="App_Assets\teachers\profile_pic2.jpg" />
     <Content Include="App_Data\iso-3166.txt" />
     <Content Include="Content\Accounts.css" />
     <Content Include="Content\Courses.css" />
@@ -266,6 +268,10 @@
     <Content Include="Views\Students\SetYear.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\StudentForm.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\CourseForm.cshtml" />
+    <Content Include="Views\Teachers\Edit.cshtml" />
+    <Content Include="Views\Teachers\TeacherForm.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

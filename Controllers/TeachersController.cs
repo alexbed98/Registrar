@@ -138,5 +138,34 @@ namespace Controllers
 
             return null;
         }
+
+        [UserAccess(Access.Admin)]
+        public ActionResult Edit()
+        {
+            int id = (int)Session["CurrentTeacherId"];
+            Teacher teacher = DB.Teachers.Get(id);
+            if (teacher != null)
+            {
+                //ViewBag.Registrations = teacher.NextSessionCoursesToSelectList;
+                //ViewBag.Courses = DB.Courses.NextSessionToSelectList;
+                return View(DB.Teachers.Get(id));
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [UserAccess(Access.Admin)]
+        public ActionResult Edit(Teacher teacher, List<int> selectedCoursesId)
+        {
+            teacher.Id = (int)Session["CurrentTeacherId"];
+
+            if (teacher.Id != 0)
+            {
+                //DB.Students.Update(student, selectedCoursesId);
+                DB.Teachers.Update(teacher);
+                return RedirectToAction("Details", new { id = teacher.Id });
+            }
+            return Redirect("/Accounts/Login?message=Accès illégal! &success=false");
+        }
     }
 }

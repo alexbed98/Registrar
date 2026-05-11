@@ -136,10 +136,10 @@ namespace Controllers
         [UserAccess(Access.Admin)]
         public ActionResult Edit(Student student, List<int> selectedCoursesId)
         {
-            if (student.IsValid())
+            student.Id = (int)Session["CurrentStudentId"];
+
+            if (student.Id != 0)
             {
-                student.Id = (int)Session["CurrentStudentId"];
-                student.Code = (string)Session["code"];
                 //DB.Students.Update(student, selectedCoursesId);
                 DB.Students.Update(student);
                 return RedirectToAction("Details", new { id = student.Id });

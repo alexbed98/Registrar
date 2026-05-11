@@ -1,0 +1,11 @@
+@model Models.Teacher
+@{
+    Html.RenderPartial("TeacherForm");
+}
+
+@section Scripts {
+    <script>$(() => {
+            newSession(620);
+            initFormValidation();
+        })</script>
+}
