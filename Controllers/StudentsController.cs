@@ -141,8 +141,8 @@ namespace Controllers
 
             if (student.Id != 0)
             {
-                // DB.Students.Update(student, selectedCoursesId);
                 DB.Students.Update(student);
+                student.UpdateRegistrations(selectedCoursesId);
                 return RedirectToAction("Details", new { id = student.Id });
             }
             return Redirect("/Accounts/Login?message=Accès illégal! &success=false");

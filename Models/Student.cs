@@ -83,8 +83,5 @@ namespace Models
                     DB.Registrations.Add(new Registration { StudentId = Id, CourseId = courseId });
                 }
         }
-
-
-
     }
 }
