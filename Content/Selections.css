@@ -1,16 +1,16 @@
 ﻿
 .selectionsGrid {
-    display: flex;
+    display: flex !important;
     flex-flow: row;
     font-family: Courrier,monospace;
     font-size: smaller;
     /*border: 1px solid #ccc;
     border-radius: 6px;
     padding: 4px;*/
-    padding-top : 8px;
-    gap:0px;
-    margin:0px;
-    padding-bottom:3px;
+    padding-top: 8px;
+    gap: 0px;
+    margin: 0px;
+    padding-bottom: 3px;
 }
 
 .HorSelectionsCMD {
@@ -24,7 +24,7 @@
 }
 
 .VerSelectionsCMD {
-    display: none;
+    display: none !important;
     flex-direction: row;
     min-height: 40px;
     align-items: center;
@@ -46,17 +46,17 @@
 
 @media screen and (max-width: 560px ) {
     .selectionsGrid {
-        display: flex;
+        display: flex !important;
         flex-flow: column;
         margin-right: 2px;
     }
 
     .HorSelectionsCMD {
-        display: none;
+        display: none !important;
     }
 
     .VerSelectionsCMD {
-        display: flex;
+        display: flex !important;
        
     }
 }

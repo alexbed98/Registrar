@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Models
 {
@@ -46,6 +47,13 @@ namespace Models
                 return teachers;
             }
         }
+
+        [JsonIgnore] public bool IsNextSession => NextSession.ValidSessions.Contains(Session);
+
+        [JsonIgnore] public List<Course> NextSessionCourses => DB.Courses.ToList().Where(r => r.Session == Session && r.IsNextSession).ToList();
+
+        [JsonIgnore]
+        public SelectList NextSessionCoursesToSelectList => SelectListUtilities<Course>.Convert(NextSessionCourses, "Caption");
 
         public void DeleteAllRegistrations()
         {

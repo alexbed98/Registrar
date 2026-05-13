@@ -179,9 +179,18 @@ namespace Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult Create(Teacher teacher)
         {
-            int number = new Random().Next(0, 99999);
+            bool codeValid = false;
+            string code = null;
 
-            teacher.Code = "CLG-420-" + number.ToString("D5");
+            while (!codeValid)
+            {
+                int number = new Random().Next(0, 99999);
+                code = "CLG-420-" + number.ToString("D5");
+
+                codeValid = DB.Teachers.ToList().Where(s => s.Code == code).FirstOrDefault() == null;
+            }
+
+            teacher.Code = code;
 
             if (teacher.IsValid())
             {

@@ -78,13 +78,12 @@
                 </li>
             </ul>
         </details>
-        @if (true)
-        {
-            <details open>
-                <summary>@sessionTitle</summary>
+
+        <details open>
+            <summary>@sessionTitle</summary>
                 @Helper.SelectionLists("selectedCoursesId", (SelectList)ViewBag.Registrations, (SelectList)ViewBag.Courses)
-            </details>
-        }
+        </details>
+
     </div>
     <input type="submit" id="submit" style="display:none" />
 }

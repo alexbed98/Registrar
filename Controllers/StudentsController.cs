@@ -126,7 +126,8 @@ namespace Controllers
             if (student != null)
             {
                 ViewBag.Registrations = student.NextSessionCoursesToSelectList;
-                //ViewBag.Courses = DB.Courses.NextSessionToSelectList;
+                ViewBag.Courses = SelectListUtilities<Course>.Convert(
+                    DB.Courses.ToList().Where(c => c.IsNextSession).ToList(), "Caption");
                 return View(DB.Students.Get(id));
             }
             return RedirectToAction("Index");
@@ -140,7 +141,7 @@ namespace Controllers
 
             if (student.Id != 0)
             {
-                //DB.Students.Update(student, selectedCoursesId);
+                // DB.Students.Update(student, selectedCoursesId);
                 DB.Students.Update(student);
                 return RedirectToAction("Details", new { id = student.Id });
             }
@@ -245,10 +246,19 @@ namespace Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult Create(Student student)
         {
-            int year = DateTime.Now.Year;
-            int number = new Random().Next(0, 99999);
+            bool codeValid = false;
+            string code = null;
 
-            student.Code = year.ToString() + number.ToString("D5");
+            while (!codeValid)
+            {
+                int year = DateTime.Now.Year;
+                int number = new Random().Next(0, 99999);
+                code = year.ToString() + number.ToString("D5");
+
+                codeValid = DB.Students.ToList().Where(s => s.Code == code).FirstOrDefault() == null;
+            }
+
+            student.Code = code;
 
             if (student.IsValid())
             {
