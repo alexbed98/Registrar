@@ -116,7 +116,7 @@
             {
                 foreach (var ui in items)
                 {
-                    if (selectedItems != null && selectedItems.Where(s => s.Value == ui.Value).FirstOrDefault() == null)
+                    if (selectedItems == null || selectedItems.Where(s => s.Value == ui.Value).FirstOrDefault() == null)
                     {
                         <option value='@ui.Value'>@ui.Text</option>
                     }

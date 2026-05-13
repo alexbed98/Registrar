@@ -238,13 +238,16 @@ namespace Controllers
         [UserAccess(Access.Write)]
         public ActionResult Create()
         {
+            ViewBag.Courses = SelectListUtilities<Course>.Convert(
+                DB.Courses.ToList().Where(c => c.IsNextSession).ToList(), "Caption");
+
             return View(new Student());
         }
 
         [HttpPost]
         [UserAccess(Access.Write)]
         [ValidateAntiForgeryToken()]
-        public ActionResult Create(Student student)
+        public ActionResult Create(Student student, List<int> selectedCoursesId)
         {
             bool codeValid = false;
             string code = null;
@@ -254,7 +257,6 @@ namespace Controllers
                 int year = DateTime.Now.Year;
                 int number = new Random().Next(0, 99999);
                 code = year.ToString() + number.ToString("D5");
-
                 codeValid = DB.Students.ToList().Where(s => s.Code == code).FirstOrDefault() == null;
             }
 
@@ -263,6 +265,7 @@ namespace Controllers
             if (student.IsValid())
             {
                 DB.Students.Add(student);
+                student.UpdateRegistrations(selectedCoursesId);
                 return RedirectToAction("List");
             }
             DB.Events.Add("Illegal Create Student");

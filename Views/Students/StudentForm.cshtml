@@ -1,8 +1,6 @@
 @model Models.Student
 @{
-    string session = Models.NextSession.ValidSessions.Contains(1) ? "Automne" : "Hiver";
-    int year = Models.NextSession.Year;
-    string sessionTitle = "Inscriptions pour la session " + session + " " + year.ToString();
+    string session = Models.NextSession.Caption;
 }
 
 
@@ -56,7 +54,7 @@
                     <fieldset>
                         <legend>Courriel</legend>
                         <input name="Email" id="Email"
-                               class="form-control"
+                               class="form-control Email"
                                required
                                RequireMessage="Veuillez entrer le courriel de l'étudiant"
                                InvalidMessage="Caractère illégal"
@@ -80,7 +78,7 @@
         </details>
 
         <details open>
-            <summary>@sessionTitle</summary>
+            <summary>@session</summary>
                 @Helper.SelectionLists("selectedCoursesId", (SelectList)ViewBag.Registrations, (SelectList)ViewBag.Courses)
         </details>
 

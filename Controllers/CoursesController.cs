@@ -129,7 +129,8 @@ namespace Controllers
             if (course != null)
             {
                 //ViewBag.Registrations = course.NextSessionCoursesToSelectList;
-                //ViewBag.Courses = DB.Courses.NextSessionToSelectList;
+                ViewBag.Students = SelectListUtilities<Student>.Convert(
+                    DB.Students.ToList().OrderBy(c => c.Code).ToList(), "Caption");
                 return View(DB.Courses.Get(id));
             }
             return RedirectToAction("Index");
@@ -137,12 +138,12 @@ namespace Controllers
 
         [HttpPost]
         [UserAccess(Access.Admin)]
-        public ActionResult Edit(Course course, List<int> selectedCoursesId)
+        public ActionResult Edit(Course course, List<int> selectedStudentsId)
         {
             course.Id = (int)Session["CurrentCourseId"];
 
             if (course.Id != 0)
-            {
+            { 
                 //DB.Students.Update(student, selectedCoursesId);
                 DB.Courses.Update(course);
                 return RedirectToAction("Details", new { id = course.Id });

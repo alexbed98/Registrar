@@ -1,50 +1,60 @@
 @model Models.Course
+@{ 
+    string session = Models.NextSession.Caption;
+}
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div>
-        <details open>
-            <summary>Informations - [@Model.Code]</summary>
+<div>
+    <details open>
+        <summary>Informations - [@Model.Code]</summary>
 
-            <ul style="padding-left: 15px;">
-                <li style="list-style-type: none;">
-                    <fieldset>
-                        <legend>Session</legend>
-                        <input name="Session" id="Session"
-                               class="form-control"
-                               required
-                               RequireMessage="Veuillez entrer le numero de session"
-                               InvalidMessage="Caractère illégal"
-                               value="@Model.Session" />
+        <ul style="padding-left: 15px;">
+            <li style="list-style-type: none;">
+                <fieldset>
+                    <legend>Session</legend>
+                    <input name="Session" id="Session"
+                           class="form-control"
+                           required
+                           RequireMessage="Veuillez entrer le numero de session"
+                           InvalidMessage="Caractère illégal"
+                           value="@Model.Session" />
 
-                    </fieldset>
-                </li>
-                <li style="list-style-type: none;">
-                    <fieldset>
-                        <legend>Sigle</legend>
-                        <input name="Code" id="Code"
-                               class="form-control"
-                               required
-                               RequireMessage="Veuillez entrer le code du cours"
-                               InvalidMessage="Caractère illégal"
-                               value="@Model.Code" />
-                    </fieldset>
-                </li>
-                <li style="list-style-type: none;">
-                    <fieldset>
-                        <legend>Title</legend>
-                        <input name="Title" id="Title"
-                               class="form-control"
-                               required
-                               RequireMessage="Veuillez entrer le titre du cours"
-                               InvalidMessage="Caractère illégal"
-                               value="@Model.Title" />
-                    </fieldset>
-                </li>
-            </ul>
-        </details>
-    </div>
+                </fieldset>
+            </li>
+            <li style="list-style-type: none;">
+                <fieldset>
+                    <legend>Sigle</legend>
+                    <input name="Code" id="Code"
+                           class="form-control"
+                           required
+                           RequireMessage="Veuillez entrer le code du cours"
+                           InvalidMessage="Caractère illégal"
+                           value="@Model.Code" />
+                </fieldset>
+            </li>
+            <li style="list-style-type: none;">
+                <fieldset>
+                    <legend>Title</legend>
+                    <input name="Title" id="Title"
+                           class="form-control"
+                           required
+                           RequireMessage="Veuillez entrer le titre du cours"
+                           InvalidMessage="Caractère illégal"
+                           value="@Model.Title" />
+                </fieldset>
+            </li>
+        </ul>
+    </details>
+
+    <details open>
+        <summary>@session</summary>
+        @Helper.SelectionLists("selectedCoursesId", (SelectList)ViewBag.Registrations, (SelectList)ViewBag.Courses)
+    </details>
+
+</div>
     <input type="submit" id="submit" style="display:none" />
 }
