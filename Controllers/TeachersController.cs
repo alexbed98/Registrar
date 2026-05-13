@@ -167,5 +167,29 @@ namespace Controllers
             }
             return Redirect("/Accounts/Login?message=Accès illégal! &success=false");
         }
+
+        [UserAccess(Access.Write)]
+        public ActionResult Create()
+        {
+            return View(new Teacher());
+        }
+
+        [HttpPost]
+        [UserAccess(Access.Write)]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(Teacher teacher)
+        {
+            int number = new Random().Next(0, 99999);
+
+            teacher.Code = "CLG-420-" + number.ToString("D5");
+
+            if (teacher.IsValid())
+            {
+                DB.Teachers.Add(teacher);
+                return RedirectToAction("List");
+            }
+            DB.Events.Add("Illegal Create Teacher");
+            return Redirect("/Accounts/Login?message=Erreur de creation de l'enseignant!&success=false");
+        }
     }
 }

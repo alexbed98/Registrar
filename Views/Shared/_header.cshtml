@@ -80,7 +80,7 @@
         case "edit":
             subSectionTitle = "Modification";
             break;
-        case "add":
+        case "create":
             subSectionTitle = "Ajout";
             break;
     }
@@ -106,11 +106,10 @@
                 </div>
                 break;
             case "edit":
+            case "create":
+            case "details":
                 <div style="font-size: 20px; font-weight: bold;">@sectionTitle - @subSectionTitle</div>
                 break;
-            case "details":
-                    <div style="font-size: 20px; font-weight: bold;">@sectionTitle - @subSectionTitle</div>
-                    break;
             }
 
         @switch (action)

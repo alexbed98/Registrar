@@ -150,5 +150,25 @@ namespace Controllers
             return Redirect("/Accounts/Login?message=Accès illégal! &success=false");
         }
 
+        [UserAccess(Access.Write)]
+        public ActionResult Create()
+        {
+            return View(new Course());
+        }
+
+        [HttpPost]
+        [UserAccess(Access.Write)]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(Course course)
+        {
+            if (course.IsValid())
+            {
+                DB.Courses.Add(course);
+                return RedirectToAction("List");
+            }
+            DB.Events.Add("Illegal Create Course");
+            return Redirect("/Accounts/Login?message=Erreur de creation du cours!&success=false");
+        }
+
     }
 }

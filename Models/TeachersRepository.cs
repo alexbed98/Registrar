@@ -8,6 +8,6 @@ namespace Models
 {
     public class TeachersRepository : Repository<Teacher>
     {
-        
+
     }
 }

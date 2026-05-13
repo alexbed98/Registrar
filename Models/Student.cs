@@ -18,7 +18,7 @@ namespace Models
         public string Email { get; set; }
         public string Phone { get; set; }
 
-        [JsonIgnore] public int Year => int.Parse(Code.Substring(0, 4));
+        [JsonIgnore] public int Year => Code != null ? int.Parse(Code.Substring(0, 4)) : 0;
 
         [JsonIgnore] public string FullName => LastName + " " + FirstName;
 

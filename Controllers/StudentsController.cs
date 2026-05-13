@@ -197,6 +197,9 @@ namespace Controllers
         [HttpPost]
         public ActionResult SetYear(int year, string session)
         {
+            if (year > DateTime.Now.Year)
+                year = DateTime.Now.Year;
+
             NextSession.CurrentDate = new DateTime(year, (session == "Automne" ? 8 : 1), 15);
             return RedirectToAction("List");
         }
@@ -229,6 +232,31 @@ namespace Controllers
             Student foundUser = DB.Students.ToList().Where(u => u.Email == Email && u.Id != currentStudentId).FirstOrDefault();
             NotAvailable = foundUser != null;
             return Json(NotAvailable, JsonRequestBehavior.AllowGet);
+        }
+
+        [UserAccess(Access.Write)]
+        public ActionResult Create()
+        {
+            return View(new Student());
+        }
+
+        [HttpPost]
+        [UserAccess(Access.Write)]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(Student student)
+        {
+            int year = DateTime.Now.Year;
+            int number = new Random().Next(0, 99999);
+
+            student.Code = year.ToString() + number.ToString("D5");
+
+            if (student.IsValid())
+            {
+                DB.Students.Add(student);
+                return RedirectToAction("List");
+            }
+            DB.Events.Add("Illegal Create Student");
+            return Redirect("/Accounts/Login?message=Erreur de creation d'étudiant!&success=false");
         }
     }
 }

@@ -4,7 +4,10 @@
 {
     @Html.AntiForgeryToken()
 
-    <input type="hidden" name="Code" value="@Model.Code"/>
+    if (Model.Code != null)
+    {
+        <input type="hidden" name="Code" value="@Model.Code" />
+    }
 
     <div>
         <details open>
@@ -47,7 +50,7 @@
                     <fieldset>
                         <legend>Courriel</legend>
                         <input name="Email" id="Email"
-                               class="form-control Alpha"
+                               class="form-control"
                                required
                                RequireMessage="Veuillez entrer le courriel de l'étudiant"
                                InvalidMessage="Caractère illégal"
