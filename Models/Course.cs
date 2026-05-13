@@ -13,6 +13,8 @@ namespace Models
         public string Title { get; set; }
         public int Session { get; set; }
 
+        [JsonIgnore] public string Caption => "[" + Session + "] " + Code + " " + Title;
+
         [JsonIgnore] public List<Registration> Registrations => DB.Registrations.ToList().Where(r => r.CourseId == Id).ToList();
 
         [JsonIgnore] public List<Allocation> Allocations => DB.Allocations.ToList().Where(r => r.CourseId == Id).ToList();
