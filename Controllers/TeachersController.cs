@@ -146,8 +146,9 @@ namespace Controllers
             Teacher teacher = DB.Teachers.Get(id);
             if (teacher != null)
             {
-                //ViewBag.Registrations = teacher.NextSessionCoursesToSelectList;
-                //ViewBag.Courses = DB.Courses.NextSessionToSelectList;
+                ViewBag.Allocations = teacher.NextSessionCoursesToSelectList;
+                ViewBag.Courses = SelectListUtilities<Course>.Convert(
+                    DB.Courses.ToList().Where(c => c.IsNextSession).ToList(), "Caption");
                 return View(DB.Teachers.Get(id));
             }
             return RedirectToAction("Index");
@@ -161,8 +162,8 @@ namespace Controllers
 
             if (teacher.Id != 0)
             {
-                //DB.Students.Update(student, selectedCoursesId);
                 DB.Teachers.Update(teacher);
+                teacher.UpdateAllocations(selectedCoursesId);
                 return RedirectToAction("Details", new { id = teacher.Id });
             }
             return Redirect("/Accounts/Login?message=Accès illégal! &success=false");
@@ -171,13 +172,16 @@ namespace Controllers
         [UserAccess(Access.Write)]
         public ActionResult Create()
         {
+            ViewBag.Courses = SelectListUtilities<Course>.Convert(
+                DB.Courses.ToList().Where(c => c.IsNextSession).ToList(), "Caption");
+
             return View(new Teacher());
         }
 
         [HttpPost]
         [UserAccess(Access.Write)]
         [ValidateAntiForgeryToken()]
-        public ActionResult Create(Teacher teacher)
+        public ActionResult Create(Teacher teacher, List<int> selectedCoursesId)
         {
             bool codeValid = false;
             string code = null;
@@ -195,6 +199,7 @@ namespace Controllers
             if (teacher.IsValid())
             {
                 DB.Teachers.Add(teacher);
+                teacher.UpdateAllocations(selectedCoursesId);
                 return RedirectToAction("List");
             }
             DB.Events.Add("Illegal Create Teacher");

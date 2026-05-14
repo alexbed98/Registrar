@@ -1,4 +1,7 @@
 @model Models.Teacher
+@{
+    string session = Models.NextSession.Caption;
+}
 
 @using (Html.BeginForm())
 {
@@ -67,6 +70,12 @@
                 </li>
             </ul>
         </details>
+
+        <details open>
+            <summary>@session</summary>
+            @Helper.SelectionLists("selectedCoursesId", (SelectList)ViewBag.Allocations, (SelectList)ViewBag.Courses)
+        </details>
+
     </div>
     <input type="submit" id="submit" style="display:none" />
 }

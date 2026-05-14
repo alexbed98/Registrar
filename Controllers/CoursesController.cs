@@ -128,7 +128,7 @@ namespace Controllers
             Course course = DB.Courses.Get(id);
             if (course != null)
             {
-                //ViewBag.Registrations = course.NextSessionCoursesToSelectList;
+                ViewBag.Registrations = course.NextSessionStudentsToSelectList;
                 ViewBag.Students = SelectListUtilities<Student>.Convert(
                     DB.Students.ToList().OrderBy(c => c.Code).ToList(), "Caption");
                 return View(DB.Courses.Get(id));
@@ -144,8 +144,8 @@ namespace Controllers
 
             if (course.Id != 0)
             { 
-                //DB.Students.Update(student, selectedCoursesId);
                 DB.Courses.Update(course);
+                course.UpdateRegistrations(selectedStudentsId);
                 return RedirectToAction("Details", new { id = course.Id });
             }
             return Redirect("/Accounts/Login?message=Accès illégal! &success=false");
@@ -154,17 +154,21 @@ namespace Controllers
         [UserAccess(Access.Write)]
         public ActionResult Create()
         {
+            ViewBag.Students = SelectListUtilities<Student>.Convert(
+                    DB.Students.ToList().OrderBy(c => c.Code).ToList(), "Caption");
+
             return View(new Course());
         }
 
         [HttpPost]
         [UserAccess(Access.Write)]
         [ValidateAntiForgeryToken()]
-        public ActionResult Create(Course course)
+        public ActionResult Create(Course course, List<int> selectedStudentsId)
         {
             if (course.IsValid())
             {
                 DB.Courses.Add(course);
+                course.UpdateRegistrations(selectedStudentsId);
                 return RedirectToAction("List");
             }
             DB.Events.Add("Illegal Create Course");

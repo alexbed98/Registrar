@@ -54,6 +54,12 @@ namespace Models
             }
         }
 
+        [JsonIgnore]
+        public SelectList CoursesSelectList => SelectListUtilities<Course>.Convert(Courses, "Caption");
+
+        [JsonIgnore]
+        public SelectList NextSessionCoursesToSelectList => SelectListUtilities<Course>.Convert(NextSessionCourses, "Caption");
+
         public void DeleteAllAllocations()
         {
             foreach (Allocation allocation in Allocations)
